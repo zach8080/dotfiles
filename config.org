@@ -5,8 +5,8 @@
 ** Setup 
 
 #+BEGIN_SRC emacs-lisp
-  (require 'package)
   (setq package-enable-at-startup nil)
+  (require 'package)
   (add-to-list 'package-archives
     '("melpa" . "https://melpa.org/packages/"))
 
@@ -30,25 +30,32 @@
            ("C-x b" . helm-buffers-list))
     :config (helm-mode 1))
 #+END_SRC
-** Auto-complete 
+** Company
 
 #+BEGIN_SRC emacs-lisp
-   (use-package auto-complete
-     :ensure t
-     :diminish (auto-complete-mode . "")
-     :init
-     (progn
-       (ac-config-default)
-       (global-auto-complete-mode t)))
+
+    (use-package company
+      :ensure t
+      :init
+      (global-company-mode))
+
+  ;; (use-package auto-complete
+  ;;   :ensure t
+  ;;   :diminish (auto-complete-mode . "")
+  ;;   :config
+  ;;   (progn
+  ;;     (ac-config-default)
+  ;;     (global-auto-complete-mode t)))
 
 #+END_SRC
-
+   
 *** Ac-Helm 
 
+
 #+begin_src emacs-lisp
-  (use-package ac-helm
-    :ensure t
-    :bind (("C-:" . ac-complete-with-helm) ))
+  ;; (use-package ac-helm
+  ;;   :ensure t
+  ;;   :bind (("C-:" . ac-complete-with-helm) ))
 
 #+end_src
 
@@ -56,12 +63,12 @@
 
 #+begin_src emacs-lisp
 
-  (use-package org-ac
-    :ensure t
-    :init (progn
-            (require 'org-ac)
-            (org-ac/config-default)
-            ))
+  ;; (use-package org-ac
+  ;;   :ensure t
+  ;;   :init (progn
+  ;;           (require 'org-ac)
+  ;;           (org-ac/config-default)
+  ;;           ))
 
 #+end_src    
 ** Yasnippet 
@@ -160,17 +167,15 @@
   (use-package speed-type
     :ensure t)
 #+END_SRC
-
 ** Themes
 
 #+BEGIN_SRC emacs-lisp
-  (use-package zenburn-theme
-    :ensure t)
+    (use-package zenburn-theme
+      :ensure t)
 
-  (use-package spacegray-theme
-    :ensure t
-;;    :config (load-theme 'whiteboard t)
-)
+    (use-package spacegray-theme
+      :ensure t
+      :config (load-theme 'spacegray t))
 #+END_SRC
 * Defaults 
 ** Menu 
