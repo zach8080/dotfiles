@@ -50,7 +50,7 @@
 #+END_SRC
    
 *** Ac-Helm 
-
+    
 
 #+begin_src emacs-lisp
   ;; (use-package ac-helm
@@ -137,6 +137,24 @@
     :ensure t
     :bind (("C-x g" . magit-status)))
 #+END_SRC
+** Auctex 
+
+#+begin_src emacs-lisp
+  (use-package tex
+    :defer t
+    :ensure auctex
+    :config
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil)
+
+    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)) 
+
+
+#+end_src
+
 ** Misc 
 
 #+BEGIN_SRC emacs-lisp
