@@ -195,7 +195,7 @@
 
     (use-package spacegray-theme
       :ensure t
-      :config (load-theme 'spacegray t))
+      :config (load-theme 'zenburn t))
 #+END_SRC
 * Defaults 
 ** Menu 
@@ -280,6 +280,13 @@
 
   ;;Add other bracket
   (electric-pair-mode 1)
+#+end_src
+
+** Server 
+
+#+begin_src emacs-lisp
+  (server-start)
+
 #+end_src
 
    
