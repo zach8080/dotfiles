@@ -1,3 +1,5 @@
+(setq-default gc-cons-threshold 100000000)
+
 ;;(package-initialize)
 (org-babel-load-file (concat user-emacs-directory "config.org"))
 (custom-set-variables
@@ -20,3 +22,4 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'narrow-to-region 'disabled nil)
+(setq-default gc-cons-threshold 800000)
