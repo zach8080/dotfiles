@@ -30,9 +30,9 @@
     :ensure t
     :diminish (helm-mode . "")
     :bind (("M-x" . helm-M-x)
+           ;;("C-c C-f" . helm-recentf)
+           ("C-x y" . helm-show-kill-ring)
            ("C-x C-f" . helm-find-files)
-           ("C-c C-f" . helm-recentf)
-           
            ("C-x C-b" . helm-buffers-list)
            ("C-x b" . helm-buffers-list))
     :config (helm-mode 1))
@@ -62,7 +62,8 @@
 #+begin_src emacs-lisp
   (use-package helm-ag
     :ensure t
-    :bind ("C-c k" . helm-ag-this-file))
+    :bind (("C-c k" . helm-do-ag-this-file)
+    ("C-x C-y" . helm-do-ag-project-root)))
 
 #+end_src
 
