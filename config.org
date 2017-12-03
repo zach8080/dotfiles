@@ -206,6 +206,10 @@
     (scroll-bar-mode -1)
     (menu-bar-mode -1)
     (tooltip-mode -1)
+
+    (setq initial-scratch-message ";; Wassup Buddy, you're home now
+;; It's ok...
+")
 #+end_src
 ** Backups 
 #+begin_src emacs-lisp

@@ -2,7 +2,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=100
 SAVEHIST=1000
-EDITOR='emacs'
+EDITOR='emacsclient -t'
 
 bindkey -e
 # End of lines configured by zsh-newuser-install
@@ -14,6 +14,8 @@ PROMPT='%F{cyan}!%F{5}%n%F{7}[%F{red}%1~%F{7}]%F{7}>%F{7}'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+alias e='emacsclient -t'
 
 neofetch
 
