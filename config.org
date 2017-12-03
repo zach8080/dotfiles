@@ -1,6 +1,5 @@
 #+TITLE: Zach's Emacs Config
 
-
 * Packages 
 ** Setup 
 
@@ -211,6 +210,18 @@
 ;; It's ok...
 ")
 #+end_src
+** Scrolling 
+
+#+begin_src emacs-lisp
+
+  (global-set-key "\M-n" "\C-u1\C-v")
+  (global-set-key "\M-p" "\C-u1\M-v")
+
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+  (setq mouse-wheel-progressive-speed nil) 
+
+#+end_src
+
 ** Backups 
 #+begin_src emacs-lisp
     ;;backups
@@ -259,6 +270,9 @@
 #+end_src
 ** Misc 
 #+begin_src emacs-lisp 
+  ;;Frame Size
+  (when window-system (set-frame-size (selected-frame) 120 50))
+
   ;;This is for line wrapping
   (global-visual-line-mode)
   (diminish 'visual-line-mode)
