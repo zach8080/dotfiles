@@ -23,51 +23,91 @@
 
 #+END_SRC
  
-** Ivy/Helm
+** Completion
    
+Helm/Ivy/Ido 
+
+- For Ivy you don't need to uncomment the use-package block for ivy, it's installed automatically
+
 #+BEGIN_SRC emacs-lisp
-  (use-package helm
-    :ensure t
-    :diminish (helm-mode . "")
-    :bind (("M-x" . helm-M-x)
-           ;;("C-c C-f" . helm-recentf)
-           ("C-x y" . helm-show-kill-ring)
-           ("C-x C-f" . helm-find-files)
-           ("C-x C-b" . helm-buffers-list)
-           ("C-x b" . helm-buffers-list))
-    :config (helm-mode 1))
+    ;; HELM WITH MODE
 
-  ;; (use-package counsel
-  ;;   :ensure t)
+      ;; (use-package helm
+      ;;   :ensure t
+      ;;   :diminish (helm-mode . "")
+      ;;   :bind (("M-x" . helm-M-x)
+      ;;          ;;("C-c C-f" . helm-recentf)
+      ;;          ("C-x y" . helm-show-kill-ring)
+      ;;          ("C-x C-f" . helm-find-files)
+      ;;          ("C-x C-b" . helm-buffers-list)
+      ;;          ("C-x b" . helm-buffers-list))
+      ;;   :config (helm-mode 1))
 
-  (use-package swiper
+      ;; (use-package helm-ag
+      ;;   :ensure t
+      ;;   :bind (("C-c k" . helm-do-ag-this-file)
+      ;;   ("C-x C-y" . helm-do-ag-project-root)))
+
+
+
+    ;; IVY - COMPLETION FRAMEWORK
+
+  ;;  (use-package ivy
+  ;;    :ensure t
+  ;;    :diminsh ivy-mode
+  ;;    :config
+  ;;    (progn
+  ;;      (ivy-mode 1)))
+
+    ;; COUNSEL - HELM REPLACEMENT
+
+    ;; (use-package counsel
+    ;;  :ensure t
+    ;;  :bind
+    ;;   ("M-x" . counsel-M-x)
+    ;;   ("C-c g" . counsel-git)
+    ;;   ("C-x C-f" . counsel-find-file)
+    ;;   ("C-c j" . counsel-git-grep)
+    ;;   ("C-c k" . counsel-ag))
+
+
+    ;; IDO - BASIC COMPLETION
+
+  (ido-mode 1)
+  (ido-everywhere 1)
+
+  (use-package ido-completing-read+
     :ensure t
-    :bind ("C-s" . swiper)
-           ;; ("M-x" . counsel-M-x)
-           ;; ("C-c g" . counsel-git)
-           ;; ("C-c j" . counsel-git-grep)
-           ;; ("C-c k" . counsel-ag))
     :config
-    (progn
-      ;;(ivy-mode 1)
-      (setq ivy-use-virtual-buffers t)
-      (setq enable-recursive-minibuffers t)
-      ;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
-      ))
+    (ido-ubiquitous-mode 1))
 
-#+END_SRC
-
-*** Helm-ag
-
-#+begin_src emacs-lisp
-  (use-package helm-ag
+  (use-package smex
     :ensure t
-    :bind (("C-c k" . helm-do-ag-this-file)
-    ("C-x C-y" . helm-do-ag-project-root)))
+    :bind ("M-x" . smex))
+
+
 
 #+end_src
 
-** Company
+** Swiper
+
+#+begin_src emacs-lisp 
+
+    ;; SWIPER - SEARCH REPLACEMENT
+
+    (use-package swiper
+      :ensure t
+      :bind ("C-s" . swiper)
+      :config
+      (progn
+        (setq ivy-use-virtual-buffers t)
+        (setq enable-recursive-minibuffers t)))
+
+
+#+end_src
+** Text-Completion
+
+Company/Auto-complete
 
 #+BEGIN_SRC emacs-lisp
 
@@ -145,6 +185,9 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)))
+
+  ;;Flyspell Hook
+  ;;(add-hook 'org-mode-hook 'flyspell-mode)
 
 #+END_SRC
    
@@ -281,6 +324,8 @@
 
 #+end_src
 ** Shell 
+
+Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
 #+begin_src emacs-lisp 
   (setq explicit-shell-file-name "/usr/local/bin/zsh")
