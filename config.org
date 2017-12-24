@@ -32,21 +32,22 @@ Helm/Ivy/Ido
 #+BEGIN_SRC emacs-lisp
     ;; HELM WITH MODE
 
-      ;; (use-package helm
-      ;;   :ensure t
-      ;;   :diminish (helm-mode . "")
-      ;;   :bind (("M-x" . helm-M-x)
-      ;;          ;;("C-c C-f" . helm-recentf)
-      ;;          ("C-x y" . helm-show-kill-ring)
-      ;;          ("C-x C-f" . helm-find-files)
-      ;;          ("C-x C-b" . helm-buffers-list)
-      ;;          ("C-x b" . helm-buffers-list))
-      ;;   :config (helm-mode 1))
+      (use-package helm
+        :ensure t
+        ;;:diminish (helm-mode . "")
+        :bind (("M-x" . helm-M-x)
+               ;;("C-c C-f" . helm-recentf)
+               ("C-x y" . helm-show-kill-ring)
+               ("C-x C-f" . helm-find-files)
+               ("C-x C-b" . helm-buffers-list)
+               ("C-x b" . helm-buffers-list)
+               ("C-x p" . helm-recentf))
+        :config (helm-mode 1))
 
-      ;; (use-package helm-ag
-      ;;   :ensure t
-      ;;   :bind (("C-c k" . helm-do-ag-this-file)
-      ;;   ("C-x C-y" . helm-do-ag-project-root)))
+      (use-package helm-ag
+        :ensure t
+        :bind (("C-c k" . helm-do-ag-this-file)
+        ("C-x C-y" . helm-do-ag-project-root)))
 
 
 
@@ -66,24 +67,26 @@ Helm/Ivy/Ido
     ;;  :bind
     ;;   ("M-x" . counsel-M-x)
     ;;   ("C-c g" . counsel-git)
+    ;;   ("C-x p" . counsel-recentf)
     ;;   ("C-x C-f" . counsel-find-file)
     ;;   ("C-c j" . counsel-git-grep)
-    ;;   ("C-c k" . counsel-ag))
+    ;;   ("C-c k" . counsel-ag)
+    ;;   ("C-x b" . ivy-switch-buffer))
 
 
     ;; IDO - BASIC COMPLETION
 
-  (ido-mode 1)
-  (ido-everywhere 1)
+  ;; (ido-mode 1)
+  ;; (ido-everywhere 1)
 
-  (use-package ido-completing-read+
-    :ensure t
-    :config
-    (ido-ubiquitous-mode 1))
+  ;; (use-package ido-completing-read+
+  ;;   :ensure t
+  ;;   :config
+  ;;   (ido-ubiquitous-mode 1))
 
-  (use-package smex
-    :ensure t
-    :bind ("M-x" . smex))
+  ;; (use-package smex
+  ;;   :ensure t
+  ;;   :bind ("M-x" . smex))
 
 
 
@@ -154,6 +157,7 @@ Company/Auto-complete
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
+    :diminish (yas-minor-mode . "")
     :init (yas-global-mode 1))
 #+END_SRC
 
@@ -217,23 +221,50 @@ Company/Auto-complete
 ** Auctex 
 
 #+begin_src emacs-lisp
-  (use-package tex
-    :defer t
-    :ensure auctex
+   (use-package tex
+     :defer t
+     :ensure auctex
+     :config
+     (setq TeX-auto-save t)
+     (setq TeX-parse-self t)
+     (setq-default TeX-master nil)
+  ;; (setq-default TeX-electric-math t)
+     
+
+     (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+     (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+     (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode))
+     (add-hook 'LaTeX-mode-hook
+               '(lambda ()
+                  (define-key LaTeX-mode-map (kbd "$") 'self-insert-command)))
+
+
+#+end_src
+** Themes
+
+#+BEGIN_SRC emacs-lisp
+    (use-package zenburn-theme
+      :ensure t)
+
+    (use-package spacegray-theme
+      :ensure t
+      :config (load-theme 'zenburn t))
+#+END_SRC
+
+** Mode-line 
+
+#+begin_src emacs-lisp 
+  (use-package smart-mode-line
+    :ensure t
     :config
-    (setq TeX-auto-save t)
-    (setq TeX-parse-self t)
-    (setq-default TeX-master nil)
-
-    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)) 
-
+    (setq sml/theme 'respectful)
+    (setq sml/no-confirm-load-theme t)
+    (sml/setup))
 
 #+end_src
 
 ** Misc 
-
+   
 #+BEGIN_SRC emacs-lisp
   ;Shows key commands when prompted
   (use-package which-key
@@ -260,17 +291,9 @@ Company/Auto-complete
     :diminish (iedit-mode . ""))
 
   (use-package speed-type
-    :ensure t)
-#+END_SRC
-** Themes
-
-#+BEGIN_SRC emacs-lisp
-    (use-package zenburn-theme
-      :ensure t)
-
-    (use-package spacegray-theme
-      :ensure t
-      :config (load-theme 'zenburn t))
+    :ensure t
+    :config
+    (add-hook 'speed-type-mode-hook visual-line-mode))
 #+END_SRC
 * Defaults 
 ** Menu 
@@ -298,8 +321,17 @@ Company/Auto-complete
 
 #+end_src
 
+** Mark 
+
+#+begin_src emacs-lisp
+
+;;  (transient-mark-mode nil)
+
+#+end_src
+
 ** Backups 
 #+begin_src emacs-lisp
+
     ;;backups
     (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
     (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
@@ -376,6 +408,9 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   ;;Add other bracket
   (electric-pair-mode 1)
+
+  ;;new buffer mode
+  (setq-default major-mode 'org-mode)
 #+end_src
 
 ** Server 
@@ -384,5 +419,11 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (server-start)
 
 #+end_src
+* Startup
 
-   
+#+begin_src emacs-lisp 
+
+  ;; (find-file "~/Google Drive/_.org")
+  ;; (rename-buffer "Main")
+
+#+end_src

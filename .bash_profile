@@ -8,3 +8,5 @@ export PATH=/usr/local/mysql/bin:$PATH
 
 tmux attach
 neofetch
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

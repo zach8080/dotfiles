@@ -1,8 +1,12 @@
 syntax on
 set hidden
-set number 
+set number
 set tabstop=2
 set backspace=2
 set nowrap
 set expandtab
 set smartindent
+set noerrorbells
+set novisualbell
+set incsearch
+set ignorecase
