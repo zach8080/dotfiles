@@ -18,7 +18,9 @@ compinit
 # ALIASES
 
 alias e='emacsclient -t'
-alias la='ls -a'
+alias ls='ls -F'
+alias la='ls -Fa'
+alias lh='ls -Flh'
 alias vi='vim'
 alias rm='rm -I --preserve-root'
 alias cdocs='cd ~/Documents'

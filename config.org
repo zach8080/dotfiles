@@ -94,6 +94,8 @@ Helm/Ivy/Ido
 
 ** Swiper
 
+This replaces the regular i-search
+
 #+begin_src emacs-lisp 
 
     ;; SWIPER - SEARCH REPLACEMENT
@@ -119,6 +121,11 @@ Company/Auto-complete
       :diminish (company-mode . "")
       :init
       (global-company-mode))
+
+  (use-package company-auctex
+    :ensure t
+    :config
+    (company-auctex-init))
 
   ;; (use-package auto-complete
   ;;   :ensure t
@@ -154,6 +161,8 @@ Company/Auto-complete
 #+end_src    
 ** Yasnippet 
 
+For snippet expansion, snippets are defined in their own files not in init. 
+
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
@@ -177,6 +186,9 @@ Company/Auto-complete
 *** Setup 
 
 #+BEGIN_SRC emacs-lisp
+  ;;Hide leading stars
+  ;;(setq org-startup-indented t)
+
   ;;Bootstrap HTML export
   (use-package ox-twbs
     :ensure t)
@@ -279,6 +291,7 @@ Company/Auto-complete
     :init
       (global-set-key [remap other-window] 'ace-window))
 
+
   ;Delete all extra whitespace
   (use-package hungry-delete
     :ensure t
@@ -294,6 +307,16 @@ Company/Auto-complete
     :ensure t
     :config
     (add-hook 'speed-type-mode-hook visual-line-mode))
+
+  ;;Multi
+  ;;(use-package multi
+  ;;  ensure: t)
+
+  ;;Spotify
+  ;;(use-package helm-spotify-plus
+  ;; :ensure t)
+
+
 #+END_SRC
 * Defaults 
 ** Menu 
@@ -411,6 +434,9 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   ;;new buffer mode
   (setq-default major-mode 'org-mode)
+
+  ;;deleting line
+  (global-set-key (kbd "C-c x") 'kill-whole-line)
 #+end_src
 
 ** Server 
