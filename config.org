@@ -1,3 +1,4 @@
+
 #+TITLE: Zach's Emacs Config
 
 * Packages 
@@ -102,7 +103,7 @@ This replaces the regular i-search
 
     (use-package swiper
       :ensure t
-      :bind ("C-s" . swiper)
+      :bind ("C-c s" . swiper)
       :config
       (progn
         (setq ivy-use-virtual-buffers t)
@@ -383,7 +384,7 @@ For snippet expansion, snippets are defined in their own files not in init.
 Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
 #+begin_src emacs-lisp 
-  (setq explicit-shell-file-name "/usr/local/bin/zsh")
+  (setq explicit-shell-file-name "/bin/bash")
 
   ;; Getting shell to use the correct path
   (defun set-exec-path-from-shell-PATH ()
@@ -400,6 +401,16 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   ;; (use-package exec-path-from-shell
   ;;   :init (when (memq window-system '(mac ns x))
   ;;           (exec-path-from-shell-initialize)))
+#+end_src
+** Bindings 
+
+#+begin_src emacs-lisp 
+
+  (global-set-key (kbd "C-c f") 'next-buffer)
+  (global-set-key (kbd "C-c b") 'previous-buffer)
+
+  (global-unset-key "\C-z")
+
 #+end_src
 ** Misc 
 #+begin_src emacs-lisp 
@@ -434,9 +445,6 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   ;;new buffer mode
   (setq-default major-mode 'org-mode)
-
-  ;;deleting line
-  (global-set-key (kbd "C-c x") 'kill-whole-line)
 #+end_src
 
 ** Server 
