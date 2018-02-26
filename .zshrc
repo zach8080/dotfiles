@@ -17,6 +17,7 @@ compinit
 
 # ALIASES
 
+alias c='clear'
 alias e='emacsclient -t'
 alias ls='ls -F'
 alias la='ls -Fa'
@@ -25,7 +26,7 @@ alias vi='vim'
 alias rm='rm -I --preserve-root'
 alias cdocs='cd ~/Documents'
 alias cnotes='cd ~/Documents/Year11Notes/'
-alias cdotfiles='cd ~/.dotfiles/'
+alias cdots='cd ~/.dotfiles/'
 alias chome='cd ~/'
 
 #PROMPT
@@ -33,9 +34,5 @@ alias chome='cd ~/'
 PROMPT='%F{cyan}!%F{5}%n%F{7}[%F{red}%1~%F{7}]%F{7}>%F{7}'
 
 #STARTUP
-
-neofetch
-tmux attach
-
 
 

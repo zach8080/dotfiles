@@ -280,12 +280,24 @@ For snippet expansion, snippets are defined in their own files not in init.
 
 #+end_src
 
-** PDF-Tools
+** Multi-term
 
 #+begin_src emacs-lisp
 
-  (use-package pdf-tools
-    :ensure t)
+  (use-package multi-term
+    :ensure t
+    :config
+    (setq multi-term-program "/bin/bash"))
+
+#+end_src
+** PDF-Tools
+
+Not working 
+
+#+begin_src emacs-lisp
+
+  ;; (use-package pdf-tools
+  ;;   :ensure t)
 
 #+end_src
 
@@ -421,6 +433,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   (global-set-key (kbd "C-c f") 'next-buffer)
   (global-set-key (kbd "C-c b") 'previous-buffer)
+  (global-set-key (kbd "C-c k") 'kill-buffer)
 
   (global-unset-key "\C-z")
 
@@ -460,6 +473,21 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (setq-default major-mode 'org-mode)
 #+end_src
 
+** Zone 
+
+#+begin_src emacs-lisp 
+
+  ;; (use-package zone
+  ;;   :ensure t
+  ;;   :config
+  ;;   (zone-when-idle 10)
+  ;;   (setq zone-programs [zone-pgm-putz-with-case])
+
+  ;;   )
+
+
+#+end_src
+
 ** Server 
 
 #+begin_src emacs-lisp
@@ -469,8 +497,11 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 * Startup
 
 #+begin_src emacs-lisp 
+  (multi-term-dedicated-open)
+  (find-file "~/Google Drive/_.org")
+  (rename-buffer "Main")
 
-  ;; (find-file "~/Google Drive/_.org")
-  ;; (rename-buffer "Main")
+
+
 
 #+end_src
