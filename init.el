@@ -36,7 +36,8 @@
  '(org-agenda-files (quote ("~/Google Drive/_.org")))
  '(package-selected-packages
    (quote
-    (emms ac-org zenburn-theme yasnippet which-key web-mode use-package speed-type spacegray-theme ox-twbs magit iedit hungry-delete ace-window ac-helm))))
+    (yasnippet-snippets emms ac-org zenburn-theme yasnippet which-key web-mode use-package speed-type spacegray-theme ox-twbs magit iedit hungry-delete ace-window ac-helm)))
+ '(pdf-tools-handle-upgrades nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

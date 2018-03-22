@@ -90,7 +90,8 @@ Helm/Ivy/Ido
 
   (use-package smex
     :ensure t
-    :bind ("M-x" . smex))
+    :bind ("M-x" . smex)
+          ("M-X" . smex-major-mode-commands))
 
 
 
@@ -193,6 +194,7 @@ For snippet expansion, snippets are defined in their own files not in init.
   ;;Hide leading stars
   ;;(setq org-startup-indented t)
 
+
   ;;Bootstrap HTML export
   (use-package ox-twbs
     :ensure t)
@@ -286,12 +288,18 @@ For snippet expansion, snippets are defined in their own files not in init.
 
   (use-package multi-term
     :ensure t
+    :bind (("C-c t" . multi-term-dedicated-toggle)
+           ("C-z" . multi-term))
     :config
-    (setq multi-term-program "/bin/bash"))
+    ;;(setq multi-term-program "/bin/bash")
+    (setq multi-term-program "/usr/local/bin/zsh")
+    (setq multi-term-dedicated-close-back-to-open-buffer-p t)
+    (setq multi-term-dedicated-select-after-open-p t)
+    (setq multi-term-dedicated-window-height 10))
 
 #+end_src
 ** PDF-Tools
-
+   
 Not working 
 
 #+begin_src emacs-lisp
@@ -299,6 +307,19 @@ Not working
   ;; (use-package pdf-tools
   ;;   :ensure t)
 
+  ;;; Install epdfinfo via 'brew install pdf-tools' and then install the
+  ;;; pdf-tools elisp via the use-package below. To upgrade the epdfinfo
+  ;;; server, just do 'brew upgrade pdf-tools' prior to upgrading to newest
+  ;;; pdf-tools package using Emacs package system. If things get messed
+  ;;; up, just do 'brew uninstall pdf-tools', wipe out the elpa
+  ;;; pdf-tools package and reinstall both as at the start.
+  (use-package pdf-tools
+    :ensure t
+    :config
+    (custom-set-variables
+      '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
+    (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))
+  (pdf-tools-install)
 #+end_src
 
 ** Misc 
@@ -435,8 +456,6 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c b") 'previous-buffer)
   (global-set-key (kbd "C-c k") 'kill-buffer)
 
-  (global-unset-key "\C-z")
-
 #+end_src
 ** Misc 
 #+begin_src emacs-lisp 
@@ -482,7 +501,6 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   ;;   :config
   ;;   (zone-when-idle 10)
   ;;   (setq zone-programs [zone-pgm-putz-with-case])
-
   ;;   )
 
 
@@ -498,8 +516,8 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
 #+begin_src emacs-lisp 
   (multi-term-dedicated-open)
-  (find-file "~/Google Drive/_.org")
-  (rename-buffer "Main")
+  ;; (find-file "~/Google Drive/_.org")
+  ;; (rename-buffer "Main")
 
 
 
