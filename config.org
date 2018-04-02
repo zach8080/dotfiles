@@ -520,7 +520,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 * Startup
 
 #+begin_src emacs-lisp 
-  (multi-term-dedicated-open)
+  ;;(multi-term-dedicated-open)
   ;; (find-file "~/Google Drive/_.org")
   ;; (rename-buffer "Main")
 
