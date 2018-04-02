@@ -1,10 +1,7 @@
 #+TITLE: Zach's Emacs Config
 
-* Todo 
-
-** TODO Set up org capture templates
 * Packages 
-** Setup
+** Setup 
 
 #+BEGIN_SRC emacs-lisp
 
@@ -22,6 +19,7 @@
   (unless (package-installed-p 'diminish)
     (package-refresh-contents)
     (package-install 'diminish))
+
 
 #+END_SRC
  
@@ -78,14 +76,13 @@ Helm/Ivy/Ido
 
     ;; IDO - BASIC COMPLETION
 
+  (setq ido-create-new-buffer 'always)
+  (setq ido-enable-flex-matching t)
+  (setq ido-enable-prefix t)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+  (ido-everywhere 1)
 
-    (setq ido-create-new-buffer 'always)
-    (setq ido-enable-flex-matching t)
-    (setq ido-enable-prefix t)
-    (setq ido-everywhere t)
-    (ido-mode 1)
-    (ido-everywhere 1)
-    
   (use-package ido-completing-read+
     :ensure t
     :config
@@ -94,7 +91,9 @@ Helm/Ivy/Ido
   (use-package smex
     :ensure t
     :bind ("M-x" . smex)
-    ("M-X" . smex-major-mode-commands))
+          ("M-X" . smex-major-mode-commands))
+
+
 
 #+end_src
 
@@ -231,7 +230,7 @@ For snippet expansion, snippets are defined in their own files not in init.
 
 #+end_src
 
-** Magit 
+** Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
@@ -300,6 +299,8 @@ For snippet expansion, snippets are defined in their own files not in init.
 
 #+end_src
 ** PDF-Tools
+   
+Not working 
 
 #+begin_src emacs-lisp
 
@@ -321,8 +322,8 @@ For snippet expansion, snippets are defined in their own files not in init.
   (pdf-tools-install)
 #+end_src
 
-** Misc
-
+** Misc 
+   
 #+BEGIN_SRC emacs-lisp
   ;Shows key commands when prompted
   (use-package which-key
@@ -336,6 +337,7 @@ For snippet expansion, snippets are defined in their own files not in init.
     :diminish (ace-window-mode . "")
     :init
       (global-set-key [remap other-window] 'ace-window))
+
 
   ;Delete all extra whitespace
   (use-package hungry-delete
@@ -453,30 +455,8 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c f") 'next-buffer)
   (global-set-key (kbd "C-c b") 'previous-buffer)
   (global-set-key (kbd "C-c k") 'kill-buffer)
-  (global-set-key (kbd "C-c v") 'visual-line-mode)
-
 
 #+end_src
-
-** Zone 
-
-#+begin_src emacs-lisp 
-
-  ;; (use-package zone
-  ;;   :ensure t
-  ;;   :config
-  ;;   (zone-when-idle 10)
-  ;;   (setq zone-programs [zone-pgm-putz-with-case])
-  ;;   )
-
-
-#+end_src
-** Font
-
-#+begin_src emacs-lisp 
-
-#+end_src
-   
 ** Misc 
 #+begin_src emacs-lisp 
   ;;Frame Size
@@ -511,6 +491,21 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   ;;new buffer mode
   (setq-default major-mode 'org-mode)
 #+end_src
+
+** Zone 
+
+#+begin_src emacs-lisp 
+
+  ;; (use-package zone
+  ;;   :ensure t
+  ;;   :config
+  ;;   (zone-when-idle 10)
+  ;;   (setq zone-programs [zone-pgm-putz-with-case])
+  ;;   )
+
+
+#+end_src
+
 ** Server 
 
 #+begin_src emacs-lisp
