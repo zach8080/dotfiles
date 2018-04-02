@@ -129,6 +129,7 @@ Company/Auto-complete
 
   (use-package company-auctex
     :ensure t
+    :after (company tex)
     :config
     (company-auctex-init))
 
@@ -171,8 +172,9 @@ For snippet expansion, snippets are defined in their own files not in init.
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
+    :defer 2
     :diminish (yas-minor-mode . "")
-    :init (yas-global-mode 1))
+    :config (yas-global-mode 1))
 #+END_SRC
 
 ** Web-mode 
@@ -191,33 +193,48 @@ For snippet expansion, snippets are defined in their own files not in init.
 *** Setup 
 
 #+BEGIN_SRC emacs-lisp
-  ;;Hide leading stars
-  ;;(setq org-startup-indented t)
+    ;;Hide leading stars
+    ;;(setq org-startup-indented t)
 
 
-  ;;Bootstrap HTML export
-  (use-package ox-twbs
-    :ensure t)
+    ;;Bootstrap HTML export
+    (use-package ox-twbs
+      :ensure t
+      :defer 4)
 
-  ;;Add notes when task done
-  (setq org-log-done 'note)
-  (setq org-log-done 'time)
+  (use-package org
+      :ensure t
+      :config
+      
+      ;;Add notes when task done
+      (setq org-log-done 'note)
+      (setq org-log-done 'time)
+      
+      (setq org-default-notes-file (concat org-directory "~/Google Drive/_.org"))
+    (define-key global-map "\C-c c" 'org-capture)
+    
+    (global-set-key (kbd "C-c a") 'org-agenda)
+  '(org-agenda-files (quote ("~/Google Drive/_.org")))
+
+
+  )
+
+
 
   ;;Execute embedded python
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)))
+  ;;(org-babel-do-load-languages
+    ;; 'org-babel-load-languages
+    ;; '((python . t)))
 
-  ;;Flyspell Hook
-  ;;(add-hook 'org-mode-hook 'flyspell-mode)
+    ;;Flyspell Hook
+    ;;(add-hook 'org-mode-hook 'flyspell-mode)
 
 #+END_SRC
    
 *** Capture Templates
 
 #+begin_src emacs-lisp
-  (setq org-default-notes-file (concat org-directory "~/Google Drive/_.org"))
-  (define-key global-map "\C-cc" 'org-capture)
+
 #+end_src
 
 *** Agenda Views 
@@ -225,9 +242,7 @@ For snippet expansion, snippets are defined in their own files not in init.
 #+begin_src emacs-lisp
 
   ;;Agenda
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  '(org-agenda-files (quote ("~/Google Drive/_.org")))
-
+  
 #+end_src
 
 ** Magit
@@ -260,12 +275,13 @@ For snippet expansion, snippets are defined in their own files not in init.
 ** Themes
 
 #+BEGIN_SRC emacs-lisp
-    (use-package zenburn-theme
-      :ensure t)
+      (use-package zenburn-theme
+        :ensure t
+        :config (load-theme 'zenburn t))
 
-    (use-package spacegray-theme
-      :ensure t
-      :config (load-theme 'zenburn t))
+      ;;(use-package spacegray-theme
+      ;;  :ensure t
+      ;;  :config (load-theme 'zenburn t))
 #+END_SRC
 
 ** Mode-line 
@@ -315,23 +331,25 @@ Not working
   ;;; pdf-tools package and reinstall both as at the start.
   (use-package pdf-tools
     :ensure t
+    :defer 4
     :config
     (custom-set-variables
       '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
     (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))
+    (setq pdf-view-use-unicode-ligther nil)
   (pdf-tools-install)
 #+end_src
 
 ** Misc 
    
 #+BEGIN_SRC emacs-lisp
-  ;Shows key commands when prompted
+  ;;Shows key commands when prompted
   (use-package which-key
     :ensure t
     :diminish (which-key-mode . "")
     :config (which-key-mode))
 
-  ;Better window switching
+  ;;Better window switching
   (use-package ace-window
     :ensure t
     :diminish (ace-window-mode . "")
@@ -339,21 +357,21 @@ Not working
       (global-set-key [remap other-window] 'ace-window))
 
 
-  ;Delete all extra whitespace
+  ;;Delete all extra whitespace
   (use-package hungry-delete
     :ensure t
     :diminish (hungry-delete-mode . "")
     :config (global-hungry-delete-mode))
 
-  ;Better replace (multiple cursors)
-  (use-package iedit
-    :ensure t
-    :diminish (iedit-mode . ""))
+  ;;Better replace (multiple cursors)
+  ;;(use-package iedit
+  ;;  :ensure t
+  ;;  :diminish (iedit-mode . ""))
 
   (use-package speed-type
     :ensure t
     :config
-    (add-hook 'speed-type-mode-hook visual-line-mode))
+    (add-hook 'speed-type-mode-hook 'visual-line-mode))
 
   ;;Multi
   ;;(use-package multi
@@ -515,7 +533,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 * Startup
 
 #+begin_src emacs-lisp 
-  (multi-term-dedicated-open)
+  ;;(multi-term-dedicated-open)
   ;; (find-file "~/Google Drive/_.org")
   ;; (rename-buffer "Main")
 
