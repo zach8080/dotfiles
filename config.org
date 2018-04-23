@@ -1,8 +1,8 @@
 #+TITLE: Zach's Emacs Config
 
-* Packages 
-** Setup 
+* Packages
 
+** Setup
 #+BEGIN_SRC emacs-lisp
 
   (setq package-enable-at-startup nil)
@@ -20,61 +20,12 @@
     (package-refresh-contents)
     (package-install 'diminish))
 
-
+  (setq use-package-compute-statistics 1)
 #+END_SRC
  
 ** Completion
-   
-Helm/Ivy/Ido 
-
-- For Ivy you don't need to uncomment the use-package block for ivy, it's installed automatically
 
 #+BEGIN_SRC emacs-lisp
-    ;; HELM WITH MODE
-
-      ;; (use-package helm
-      ;;   :ensure t
-      ;;   ;;:diminish (helm-mode . "")
-      ;;   :bind (("M-x" . helm-M-x)
-      ;;          ;;("C-c C-f" . helm-recentf)
-      ;;          ("C-c y" . helm-show-kill-ring)
-      ;;          ("C-x C-f" . helm-find-files)
-      ;;          ("C-x C-b" . helm-buffers-list)
-      ;;          ("C-x b" . helm-buffers-list)
-      ;;          ("C-c p" . helm-recentf))
-      ;;   :config (helm-mode 1))
-
-      ;; (use-package helm-ag
-      ;;   :ensure t
-      ;;   :bind (("C-c k" . helm-do-ag-this-file)
-      ;;   ("C-x C-y" . helm-do-ag-project-root)))
-
-
-
-    ;; IVY - COMPLETION FRAMEWORK
-
-  ;;  (use-package ivy
-  ;;    :ensure t
-  ;;    :diminsh ivy-mode
-  ;;    :config
-  ;;    (progn
-  ;;      (ivy-mode 1)))
-
-    ;; COUNSEL - HELM REPLACEMENT
-
-    ;; (use-package counsel
-    ;;  :ensure t
-    ;;  :bind
-    ;;   ("M-x" . counsel-M-x)
-    ;;   ("C-c g" . counsel-git)
-    ;;   ("C-x p" . counsel-recentf)
-    ;;   ("C-x C-f" . counsel-find-file)
-    ;;   ("C-c j" . counsel-git-grep)
-    ;;   ("C-c k" . counsel-ag)
-    ;;   ("C-x b" . ivy-switch-buffer))
-
-
-    ;; IDO - BASIC COMPLETION
 
   (setq ido-create-new-buffer 'always)
   (setq ido-enable-flex-matching t)
@@ -90,16 +41,15 @@ Helm/Ivy/Ido
 
   (use-package smex
     :ensure t
-    :bind ("M-x" . smex)
-          ("M-X" . smex-major-mode-commands))
-
-
+    :bind
+    ("M-x" . smex)
+    ("M-X" . smex-major-mode-commands)
+    :config
+    (smex-initialize))
 
 #+end_src
 
 ** Swiper
-
-This replaces the regular i-search
 
 #+begin_src emacs-lisp 
 
@@ -116,16 +66,15 @@ This replaces the regular i-search
 
 #+end_src
 ** Text-Completion
-   
-Company/Auto-complete
 
 #+BEGIN_SRC emacs-lisp
 
-    (use-package company
-      :ensure t
-      :diminish (company-mode . "")
-      :init
-      (global-company-mode))
+  (use-package company
+    :ensure t
+    :defer 3
+    :diminish (company-mode . "")
+    :init
+    (global-company-mode))
 
   (use-package company-auctex
     :ensure t
@@ -133,48 +82,15 @@ Company/Auto-complete
     :config
     (company-auctex-init))
 
-  ;; (use-package auto-complete
-  ;;   :ensure t
-  ;;   :diminish (auto-complete-mode . "")
-  ;;   :config
-  ;;   (progn
-  ;;     (ac-config-default)
-  ;;     (global-auto-complete-mode t)))
-
-#+END_SRC
-   
-*** Ac-Helm 
-    
-
-#+begin_src emacs-lisp
-  ;; (use-package ac-helm
-  ;;   :ensure t
-  ;;   :bind (("C-:" . ac-complete-with-helm) ))
-
-#+end_src
-
-*** Ac-Org
-
-#+begin_src emacs-lisp
-
-  ;; (use-package org-ac
-  ;;   :ensure t
-  ;;   :init (progn
-  ;;           (require 'org-ac)
-  ;;           (org-ac/config-default)
-  ;;           ))
-
 #+end_src    
-** Yasnippet 
-
-For snippet expansion, snippets are defined in their own files not in init. 
+** Yasnippet
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :defer 2
-    :diminish (yas-minor-mode . "")
-    :config (yas-global-mode 1))
+    (use-package yasnippet
+      :ensure t
+      :defer 2
+      :diminish (yas-minor-mode . "")
+      :config (yas-global-mode 1))
 #+END_SRC
 
 ** Web-mode 
@@ -182,69 +98,54 @@ For snippet expansion, snippets are defined in their own files not in init.
 #+BEGIN_SRC emacs-lisp
   (use-package web-mode
     :ensure t
+    :defer t
     :mode (("\\.html\\'" . web-mode)
            ("\\.html\\.erb\\'" . web-mode)
-           ("\\.mustache\\'" . web-mode)
+           ("\\.css\\'" . web-mode)
            ("\\.jinja\\'" . web-mode)
            ("\\.php\\'" . web-mode)))
 #+END_SRC
-** Org 
-   
-*** Setup 
+** Org
 
 #+BEGIN_SRC emacs-lisp
-    ;;Hide leading stars
-    ;;(setq org-startup-indented t)
-
-
-    ;;Bootstrap HTML export
-    (use-package ox-twbs
-      :ensure t
-      :defer 4)
 
   (use-package org
-      :ensure t
-      :config
-      
-      ;;Add notes when task done
-      (setq org-log-done 'note)
-      (setq org-log-done 'time)
-      
-      (setq org-default-notes-file (concat org-directory "~/Google Drive/_.org"))
-    (define-key global-map "\C-c c" 'org-capture)
+    :ensure t
+    :config
     
+    ;;Add notes when task done
+    (setq org-log-done 'note)
+    (setq org-log-done 'time)
+
+    ;;New Drawer Name
+    (add-to-list 'org-drawers "LATEX")
+    
+    ;;Follow links with RET
+    (setq org-return-follows-link t)
+
+    ;;(setq org-cycle-include-plain-lists 'integrate)
+    
+    ;;Notes and Capture 
+    (setq org-default-notes-file (concat org-directory "~/Google Drive/_.org"))
+    (define-key global-map "\C-c c" 'org-capture)
+
+    ;;Agenda Files 
     (global-set-key (kbd "C-c a") 'org-agenda)
-  '(org-agenda-files (quote ("~/Google Drive/_.org")))
+    '(org-agenda-files (quote ("~/Google Drive/_.org"))))
 
+  (use-package ox-twbs
+    :ensure t
+    :defer 4)
 
-  )
+    ;;Execute embedded python
+    ;;(org-babel-do-load-languages
+      ;; 'org-babel-load-languages
+      ;; '((python . t)))
 
-
-
-  ;;Execute embedded python
-  ;;(org-babel-do-load-languages
-    ;; 'org-babel-load-languages
-    ;; '((python . t)))
-
-    ;;Flyspell Hook
-    ;;(add-hook 'org-mode-hook 'flyspell-mode)
+      ;;Flyspell Hook
+      ;;(add-hook 'org-mode-hook 'flyspell-mode)
 
 #+END_SRC
-   
-*** Capture Templates
-
-#+begin_src emacs-lisp
-
-#+end_src
-
-*** Agenda Views 
-
-#+begin_src emacs-lisp
-
-  ;;Agenda
-  
-#+end_src
-
 ** Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -275,13 +176,15 @@ For snippet expansion, snippets are defined in their own files not in init.
 ** Themes
 
 #+BEGIN_SRC emacs-lisp
-      (use-package zenburn-theme
-        :ensure t
-        :config (load-theme 'zenburn t))
+  (use-package zenburn-theme
+    :ensure t
+    :config (load-theme 'zenburn t)
+    (set-face-attribute 'default nil
+                  :family "Roboto Mono" :height 120 :weight 'normal))
 
-      ;;(use-package spacegray-theme
-      ;;  :ensure t
-      ;;  :config (load-theme 'zenburn t))
+  ;;(use-package spacegray-theme
+  ;;  :ensure t
+  ;;  :config (load-theme 'zenburn t))
 #+END_SRC
 
 ** Mode-line 
@@ -292,6 +195,8 @@ For snippet expansion, snippets are defined in their own files not in init.
     :config
     (setq sml/theme 'respectful)
     (setq sml/no-confirm-load-theme t)
+    (setq sml/shorten-directory t)
+    (setq sml/shorten-modes t)
     (add-to-list 'sml/replacer-regexp-list '("^:Doc:/Year11Notes/" ":11Notes") t)
     (add-to-list 'sml/replacer-regexp-list '("^~/.dotfiles/" ":dots:") t)
     (sml/setup))
@@ -306,6 +211,7 @@ For snippet expansion, snippets are defined in their own files not in init.
     :ensure t
     :bind (("C-c t" . multi-term-dedicated-toggle)
            ("C-z" . multi-term))
+    
     :config
     ;;(setq multi-term-program "/bin/bash")
     (setq multi-term-program "/usr/local/bin/zsh")
@@ -316,8 +222,6 @@ For snippet expansion, snippets are defined in their own files not in init.
 #+end_src
 ** PDF-Tools
    
-Not working 
-
 #+begin_src emacs-lisp
 
   ;; (use-package pdf-tools
@@ -334,10 +238,29 @@ Not working
     :defer 4
     :config
     (custom-set-variables
-      '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
-    (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))
+     '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
+    (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
     (setq pdf-view-use-unicode-ligther nil)
-  (pdf-tools-install)
+    ;; more fine-grained zooming
+    (setq pdf-view-resize-factor 1.1)
+    (pdf-tools-install))
+
+#+end_src
+
+** Recentf 
+
+#+begin_src emacs-lisp 
+
+  (recentf-mode 1)
+  (setq recentf-max-menu-items 25)
+
+#+end_src
+** Dired
+
+#+begin_src emacs-lisp 
+
+(setq dired-listing-switches "-alh")
+
 #+end_src
 
 ** Misc 
@@ -356,34 +279,49 @@ Not working
     :init
       (global-set-key [remap other-window] 'ace-window))
 
-
   ;;Delete all extra whitespace
   (use-package hungry-delete
     :ensure t
     :diminish (hungry-delete-mode . "")
     :config (global-hungry-delete-mode))
 
-  ;;Better replace (multiple cursors)
-  ;;(use-package iedit
-  ;;  :ensure t
-  ;;  :diminish (iedit-mode . ""))
-
   (use-package speed-type
     :ensure t
+    :defer t
     :config
     (add-hook 'speed-type-mode-hook 'visual-line-mode))
 
-  ;;Multi
-  ;;(use-package multi
-  ;;  ensure: t)
-
-  ;;Spotify
-  ;;(use-package helm-spotify-plus
-  ;; :ensure t)
-
-
+  (use-package wttrin
+    :ensure t
+    :commands (wttrin)
+    :init
+    (setq wttrin-default-cities '("Toronto"
+                                  "Montreal"))
+    (setq wttrin-default-accept-language '("Accept-Language" . "en-CA"))
+    :bind
+    ("C-c w" . wttrin)
+  )
 #+END_SRC
-* Defaults 
+* Defaults
+** Functions 
+
+#+begin_src emacs-lisp
+
+  (defun kill-other-buffers ()
+        "Kill all other buffers."
+        (interactive)
+        (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+  (defun new-empty-buffer ()
+    (interactive)
+    (let (($buf (generate-new-buffer "untitled")))
+      (switch-to-buffer $buf)
+      (funcall initial-major-mode)
+      (setq buffer-offer-save t)
+      $buf
+      ))
+#+end_src
+
 ** Menu 
 
 #+begin_src emacs-lisp 
@@ -443,7 +381,7 @@ Not working
           user-mail-address "zachary.dawood@gmail.com")
 
 #+end_src
-** Shell 
+** Shell
 
 Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
@@ -467,13 +405,17 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   ;;           (exec-path-from-shell-initialize)))
 #+end_src
 ** Bindings 
-
+   
 #+begin_src emacs-lisp 
 
+  (global-set-key (kbd "C-x k") 'kill-this-buffer)
   (global-set-key (kbd "C-c f") 'next-buffer)
   (global-set-key (kbd "C-c b") 'previous-buffer)
-  (global-set-key (kbd "C-c k") 'kill-buffer)
-
+  (global-set-key (kbd "C-c k") 'kill-other-buffers)
+  (global-set-key (kbd "C-c i") 'ibuffer)
+  (global-set-key (kbd "C-c d") 'dired-jump)
+  (global-set-key (kbd "C-c r") 'recentf-open-files)
+  (global-set-key (kbd "C-c c") 'calc)
 #+end_src
 ** Misc 
 #+begin_src emacs-lisp 
@@ -483,7 +425,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   ;;This is for line wrapping
   (global-visual-line-mode)
   (diminish 'visual-line-mode)
-  (diminish 'auto-revert-mode)
+  (diminish 'auto-revert-mode "")
 
   (delete-selection-mode t)
 
@@ -521,7 +463,6 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   ;;   (setq zone-programs [zone-pgm-putz-with-case])
   ;;   )
 
-
 #+end_src
 
 ** Server 
@@ -530,14 +471,5 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (server-start)
 
 #+end_src
-* Startup
 
-#+begin_src emacs-lisp 
-  ;;(multi-term-dedicated-open)
-  ;; (find-file "~/Google Drive/_.org")
-  ;; (rename-buffer "Main")
-
-
-
-
-#+end_src
+  
