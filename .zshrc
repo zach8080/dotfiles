@@ -3,6 +3,7 @@ HISTFILE=~/.histfile
 HISTSIZE=100
 SAVEHIST=1000
 EDITOR='emacsclient -t'
+VISUAL='emacs'
 
 bindkey -e
 
@@ -19,15 +20,16 @@ compinit
 
 alias c='clear'
 alias e='emacsclient -t'
+alias q='exit'
 alias ls='ls -F'
 alias la='ls -Fa'
 alias lh='ls -Flh'
 alias vi='vim'
 alias rm='rm -I --preserve-root'
-alias cdocs='cd ~/Documents'
-alias cnotes='cd ~/Documents/Year11Notes/'
-alias cdots='cd ~/.dotfiles/'
-alias chome='cd ~/'
+alias docs='cd ~/Documents'
+alias notes='cd ~/Documents/Year11Notes/'
+alias dots='cd ~/.dotfiles/'
+alias home='cd ~/'
 
 #PROMPT
 

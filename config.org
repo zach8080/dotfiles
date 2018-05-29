@@ -1,7 +1,7 @@
 #+TITLE: Zach's Emacs Config
 
 * Packages
-
+  
 ** Setup
 #+BEGIN_SRC emacs-lisp
 
@@ -48,7 +48,7 @@
     (smex-initialize))
 
 #+end_src
-
+   
 ** Swiper
 
 #+begin_src emacs-lisp 
@@ -111,6 +111,7 @@
 
   (use-package org
     :ensure t
+    :defer 2
     :config
     
     ;;Add notes when task done
@@ -118,7 +119,7 @@
     (setq org-log-done 'time)
 
     ;;New Drawer Name
-    (add-to-list 'org-drawers "LATEX")
+    ;;(add-to-list 'org-drawers "LATEX")
     
     ;;Follow links with RET
     (setq org-return-follows-link t)
@@ -150,7 +151,8 @@
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
-    :bind (("C-c g" . magit-status)))
+    :bind (("C-c g" . magit-status)
+           ("C-c l" . magit-log)))
 #+END_SRC
 ** Auctex 
 
@@ -179,12 +181,9 @@
   (use-package zenburn-theme
     :ensure t
     :config (load-theme 'zenburn t)
+    (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (set-face-attribute 'default nil
-                  :family "Roboto Mono" :height 120 :weight 'normal))
-
-  ;;(use-package spacegray-theme
-  ;;  :ensure t
-  ;;  :config (load-theme 'zenburn t))
+		  :family "Roboto Mono" :height 120 :weight 'normal))
 #+END_SRC
 
 ** Mode-line 
@@ -197,7 +196,8 @@
     (setq sml/no-confirm-load-theme t)
     (setq sml/shorten-directory t)
     (setq sml/shorten-modes t)
-    (add-to-list 'sml/replacer-regexp-list '("^:Doc:/Year11Notes/" ":11Notes") t)
+    (column-number-mode 1)
+    (add-to-list 'sml/replacer-regexp-list '("^~/Documents/Year11Notes/" ":11Notes") t)
     (add-to-list 'sml/replacer-regexp-list '("^~/.dotfiles/" ":dots:") t)
     (sml/setup))
 
@@ -224,6 +224,8 @@
    
 #+begin_src emacs-lisp
 
+  ;; Not working for some reason - fix later
+
   ;; (use-package pdf-tools
   ;;   :ensure t)
 
@@ -233,18 +235,40 @@
   ;;; pdf-tools package using Emacs package system. If things get messed
   ;;; up, just do 'brew uninstall pdf-tools', wipe out the elpa
   ;;; pdf-tools package and reinstall both as at the start.
-  (use-package pdf-tools
-    :ensure t
-    :defer 4
-    :config
-    (custom-set-variables
-     '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
-    (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
-    (setq pdf-view-use-unicode-ligther nil)
-    ;; more fine-grained zooming
-    (setq pdf-view-resize-factor 1.1)
-    (pdf-tools-install))
+  ;; (use-package pdf-tools
+  ;;   :ensure t
+  ;;   :defer 4
+  ;;   :config
+  ;;   (custom-set-variables
+  ;;    '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
+  ;;   (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
+  ;;   (setq pdf-view-use-unicode-ligther nil)
+  ;;   ;; more fine-grained zooming
+  ;;   (setq pdf-view-resize-factor 1.1)
+  ;;   (pdf-tools-install))
 
+#+end_src
+
+** Hyperbole 
+
+#+begin_src emacs-lisp
+  (use-package hyperbole
+    :ensure t
+    :bind ("C-c h" . hyperbole)
+    :defer 1)
+#+end_src
+
+** Deft 
+
+#+begin_src emacs-lisp 
+
+  (use-package deft
+    :ensure t
+    :bind (("C-c i" . deft)
+           ("C-c u" . deft-new-file))
+    :config
+    (setq deft-extensions '("org" "txt"))
+    )
 #+end_src
 
 ** Recentf 
@@ -257,29 +281,40 @@
 #+end_src
 ** Dired
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 
-(setq dired-listing-switches "-alh")
+  ;; using ls-lisp with these settings gives case-insensitve
+  ;; sorting on OS X
+  (require 'ls-lisp)
+  (setq dired-listing-switches "-alhG")
+  (setq ls-lisp-use-insert-directory-program nil)
+  (setq ls-lisp-ignore-case t)
+  (setq ls-lisp-use-string-collate nil)
+  ;; customise the appearance of the listing
+  (setq ls-lisp-verbosity 'nil)
+  (setq ls-lisp-format-time-list '("%b %e %H:%M" "%b %e  %Y"))
+  (setq ls-lisp-use-localized-time-format t)
 
+  (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 #+end_src
 
-** Misc 
+** Misc
    
 #+BEGIN_SRC emacs-lisp
-  ;;Shows key commands when prompted
-  (use-package which-key
-    :ensure t
-    :diminish (which-key-mode . "")
-    :config (which-key-mode))
 
-  ;;Better window switching
+  ;;Shows key commands when prompted
+  ;; (use-package which-key
+  ;;   :ensure t
+  ;;   :diminish (which-key-mode . "")
+  ;;   :config (which-key-mode))
+
+  ;; ;;Better window switching
   (use-package ace-window
     :ensure t
     :diminish (ace-window-mode . "")
     :init
       (global-set-key [remap other-window] 'ace-window))
 
-  ;;Delete all extra whitespace
   (use-package hungry-delete
     :ensure t
     :diminish (hungry-delete-mode . "")
@@ -296,11 +331,10 @@
     :commands (wttrin)
     :init
     (setq wttrin-default-cities '("Toronto"
-                                  "Montreal"))
+				  "Montreal"))
     (setq wttrin-default-accept-language '("Accept-Language" . "en-CA"))
     :bind
-    ("C-c w" . wttrin)
-  )
+    ("C-c w" . wttrin))
 #+END_SRC
 * Defaults
 ** Functions 
@@ -310,16 +344,19 @@
   (defun kill-other-buffers ()
         "Kill all other buffers."
         (interactive)
-        (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+        (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+        (message "Other buffers killed"))
 
   (defun new-empty-buffer ()
     (interactive)
-    (let (($buf (generate-new-buffer "untitled")))
+    (let (($buf (generate-new-buffer "zilch")))
       (switch-to-buffer $buf)
-      (funcall initial-major-mode)
       (setq buffer-offer-save t)
       $buf
+      (org-mode)
       ))
+
+
 #+end_src
 
 ** Menu 
@@ -328,7 +365,7 @@
     (setq inhibit-startup-message t)
     (tool-bar-mode -1)
     (scroll-bar-mode -1)
-    (menu-bar-mode -1)
+    ;;(menu-bar-mode -1)
     (tooltip-mode -1)
 
     (setq initial-scratch-message ";; Wassup Buddy, you're home now
@@ -345,6 +382,8 @@
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
   (setq mouse-wheel-progressive-speed nil) 
 
+  (setq scroll-conservatively 10000
+        scroll-preserve-screen-position t)
 #+end_src
 
 ** Mark 
@@ -353,6 +392,18 @@
 
 ;;  (transient-mark-mode nil)
 
+#+end_src
+
+** Disabled Commands
+
+#+begin_src emacs-lisp 
+(put 'narrow-to-region 'disabled nil)          ; C-x n n
+(put 'narrow-to-page 'disabled nil)            ; C-x n p
+(put 'scroll-left 'disabled nil)               ; C-x > or <
+(put 'downcase-region 'disabled nil)           ; C-x C-l
+(put 'upcase-region 'disabled nil)             ; C-x C-u
+(put 'set-goal-column 'disabled nil)           ; C-x C-n ==> disable with C-u
+(put 'dired-find-alternate-file 'disabled nil) ; a in dired
 #+end_src
 
 ** Backups 
@@ -373,8 +424,7 @@
     (prefer-coding-system 'utf-8)
 
 #+end_src
-** Personal 
-
+** Personal
 #+begin_src emacs-lisp 
     ;;Personal Information
     (setq user-full-name "Zachary Dawood" 
@@ -408,14 +458,25 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
    
 #+begin_src emacs-lisp 
 
-  (global-set-key (kbd "C-x k") 'kill-this-buffer)
-  (global-set-key (kbd "C-c f") 'next-buffer)
   (global-set-key (kbd "C-c b") 'previous-buffer)
-  (global-set-key (kbd "C-c k") 'kill-other-buffers)
-  (global-set-key (kbd "C-c i") 'ibuffer)
+  (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c d") 'dired-jump)
+  (global-set-key (kbd "C-c e") 'ibuffer)
+  (global-set-key (kbd "C-c f") 'next-buffer)
+  (global-set-key (kbd "C-c k") 'kill-this-buffer)
+  (global-set-key (kbd "C-c n") 'new-empty-buffer)
+  (global-set-key (kbd "C-c m") 'flyspell-mode)
+  (global-set-key (kbd "C-c o") 'calc)
   (global-set-key (kbd "C-c r") 'recentf-open-files)
-  (global-set-key (kbd "C-c c") 'calc)
+  (global-set-key (kbd "C-c v") 'visual-line-mode)
+
+  (global-set-key (kbd "C-x k") 'kill-other-buffers)
+
+  (global-set-key (kbd "<s-down>")
+		  (lambda () (interactive) (next-line 5)))
+  (global-set-key (kbd "<s-up>")
+		  (lambda () (interactive) (next-line -5)))
+
 #+end_src
 ** Misc 
 #+begin_src emacs-lisp 
@@ -425,11 +486,11 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   ;;This is for line wrapping
   (global-visual-line-mode)
   (diminish 'visual-line-mode)
-  (diminish 'auto-revert-mode "")
+  (diminish 'auto-revert-mode)
 
   (delete-selection-mode t)
 
-  (setq default-cursor-type 'bar)
+  (setq-default cursor-type 'bar)
   (blink-cursor-mode 1)
 
   ;;Go away
@@ -468,8 +529,17 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 ** Server 
 
 #+begin_src emacs-lisp
-  (server-start)
+  (server-start
 
+   (add-hook 'server-switch-hook
+             (lambda ()
+               (when (current-local-map)
+                 (use-local-map (copy-keymap (current-local-map))))
+               (when server-buffer-clients
+                 (local-set-key (kbd "C-x k") 'server-edit)))))
 #+end_src
 
   
+   
+   
+   
