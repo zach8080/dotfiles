@@ -24,7 +24,7 @@
  '(org-agenda-files (quote ("~/Google Drive/_.org")))
  '(package-selected-packages
    (quote
-    (esup emms ac-org zenburn-theme yasnippet which-key web-mode use-package speed-type spacegray-theme ox-twbs magit iedit hungry-delete ace-window ac-helm)))
+    (yasnippet-snippets cloc 2048-game esup emms ac-org zenburn-theme yasnippet which-key web-mode use-package speed-type spacegray-theme ox-twbs magit iedit hungry-delete ace-window ac-helm)))
  '(pdf-tools-handle-upgrades nil)
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(vc-annotate-background "#2B2B2B")

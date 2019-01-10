@@ -7,8 +7,10 @@
 
   (setq package-enable-at-startup nil)
   (require 'package)
+  
+
   (add-to-list 'package-archives
-    '("melpa" . "https://melpa.org/packages/"))
+         '("melpa" . "http://melpa.org/packages/"))
 
   (package-initialize)
 
@@ -22,7 +24,7 @@
 
   (setq use-package-compute-statistics 1)
 #+END_SRC
- 
+
 ** Completion
 
 #+BEGIN_SRC emacs-lisp
@@ -48,10 +50,10 @@
     (smex-initialize))
 
 #+end_src
-   
+
 ** Swiper
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 
     ;; SWIPER - SEARCH REPLACEMENT
 
@@ -74,6 +76,13 @@
     :defer 3
     :diminish (company-mode . "")
     :init
+    (setq company-idle-delay 0.3)
+    (setq company-begin-commands '(self-insert-command))
+    (setq company-minimum-prefix-length 1)
+    (setq company-tooltip-align-annotations t)
+    (setq company-tooltip-limit 20)
+    (setq company-dabbrev-downcase nil)
+    :config
     (global-company-mode))
 
   (use-package company-auctex
@@ -82,18 +91,22 @@
     :config
     (company-auctex-init))
 
-#+end_src    
+#+end_src
 ** Yasnippet
 
 #+BEGIN_SRC emacs-lisp
-    (use-package yasnippet
-      :ensure t
-      :defer 2
-      :diminish (yas-minor-mode . "")
-      :config (yas-global-mode 1))
+  (use-package yasnippet
+    :ensure t
+    :defer 2
+    :diminish (yas-minor-mode . "")
+    :config (yas-global-mode 1))
+
+  (use-package yasnippet-snippets
+    :ensure t
+    :defer t)
 #+END_SRC
 
-** Web-mode 
+** Web-mode
 
 #+BEGIN_SRC emacs-lisp
   (use-package web-mode
@@ -113,24 +126,24 @@
     :ensure t
     :defer 2
     :config
-    
+
     ;;Add notes when task done
     (setq org-log-done 'note)
     (setq org-log-done 'time)
 
     ;;New Drawer Name
     ;;(add-to-list 'org-drawers "LATEX")
-    
+
     ;;Follow links with RET
     (setq org-return-follows-link t)
 
     ;;(setq org-cycle-include-plain-lists 'integrate)
-    
-    ;;Notes and Capture 
+
+    ;;Notes and Capture
     (setq org-default-notes-file (concat org-directory "~/Google Drive/_.org"))
     (define-key global-map "\C-c c" 'org-capture)
 
-    ;;Agenda Files 
+    ;;Agenda Files
     (global-set-key (kbd "C-c a") 'org-agenda)
     '(org-agenda-files (quote ("~/Google Drive/_.org"))))
 
@@ -154,7 +167,7 @@
     :bind (("C-c g" . magit-status)
            ("C-c l" . magit-log)))
 #+END_SRC
-** Auctex 
+** Auctex
 
 #+begin_src emacs-lisp
    (use-package tex
@@ -165,7 +178,7 @@
      (setq TeX-parse-self t)
      (setq-default TeX-master nil)
   ;; (setq-default TeX-electric-math t)
-     
+
 
      (add-hook 'LaTeX-mode-hook 'visual-line-mode)
      (add-hook 'LaTeX-mode-hook 'flyspell-mode)
@@ -186,9 +199,9 @@
 		  :family "Roboto Mono" :height 120 :weight 'normal))
 #+END_SRC
 
-** Mode-line 
+** Mode-line
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
   (use-package smart-mode-line
     :ensure t
     :config
@@ -210,8 +223,8 @@
   (use-package multi-term
     :ensure t
     :bind (("C-c t" . multi-term-dedicated-toggle)
-           ("C-z" . multi-term))
-    
+           ("C-c z" . multi-term))
+
     :config
     ;;(setq multi-term-program "/bin/bash")
     (setq multi-term-program "/usr/local/bin/zsh")
@@ -221,7 +234,7 @@
 
 #+end_src
 ** PDF-Tools
-   
+
 #+begin_src emacs-lisp
 
   ;; Not working for some reason - fix later
@@ -249,7 +262,7 @@
 
 #+end_src
 
-** Hyperbole 
+** Hyperbole
 
 #+begin_src emacs-lisp
   (use-package hyperbole
@@ -258,9 +271,66 @@
     :defer 1)
 #+end_src
 
-** Deft 
+** Ibuffer
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
+
+    (setq ibuffer-saved-filter-groups
+	  (quote (("New"
+
+		   ("Terminal"
+		    (mode . term-mode))
+
+
+	     ("Magit" (name . "magit"))
+
+		   ("Dired"
+		    (mode . dired-mode))
+
+
+		   ("School"
+		    (filename . "Documents/Year11Notes/"))
+
+		   ("Text" ;; all org-related buffers
+		    (or
+		     (mode . org-mode)
+		     (mode . text-mode)
+
+		     ))
+		   ))))
+
+    (add-hook 'ibuffer-mode-hook
+      (lambda ()
+	(ibuffer-switch-to-saved-filter-groups "New")))
+
+
+  (setq ibuffer-show-empty-filter-groups nil)
+
+
+    ;; ;; Use human readable Size column instead of original one
+    ;; (define-ibuffer-column size-h
+    ;;   (:name "Size" :inline t)
+    ;;   (cond
+    ;;    ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+    ;;    ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
+    ;;    ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+    ;;    (t (format "%8d" (buffer-size)))))
+
+    ;; ;; Modify the default ibuffer-formats
+    ;;   (setq ibuffer-formats
+    ;; 	'((mark modified read-only " "
+    ;; 		(name 18 18 :left :elide)
+    ;; 		" "
+    ;; 		(size-h 9 -1 :right)
+    ;; 		" "
+    ;; 		(mode 16 16 :left :elide)
+    ;; 		" "
+    ;; 		filename-and-process)))
+#+end_src
+
+** Deft
+
+#+begin_src emacs-lisp
 
   (use-package deft
     :ensure t
@@ -270,10 +340,22 @@
     (setq deft-extensions '("org" "txt"))
     )
 #+end_src
+** Nov
 
-** Recentf 
++begin_src emacs-lisp
 
-#+begin_src emacs-lisp 
+  (use-package nov
+    :ensure t
+    :defer t
+    :mode
+    ("\\.epub\\'" . nov-mode)
+
+    )
++end_src
+
+** Recentf
+
+#+begin_src emacs-lisp
 
   (recentf-mode 1)
   (setq recentf-max-menu-items 25)
@@ -299,7 +381,7 @@
 #+end_src
 
 ** Misc
-   
+
 #+BEGIN_SRC emacs-lisp
 
   ;;Shows key commands when prompted
@@ -326,6 +408,12 @@
     :config
     (add-hook 'speed-type-mode-hook 'visual-line-mode))
 
+
+  (use-package ag
+    :ensure t
+    :defer t)
+
+
   (use-package wttrin
     :ensure t
     :commands (wttrin)
@@ -337,15 +425,15 @@
     ("C-c w" . wttrin))
 #+END_SRC
 * Defaults
-** Functions 
+** Functions
 
 #+begin_src emacs-lisp
 
   (defun kill-other-buffers ()
-        "Kill all other buffers."
-        (interactive)
-        (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-        (message "Other buffers killed"))
+	"Kill all other buffers."
+	(interactive)
+	(mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+	(message "Other buffers killed"))
 
   (defun new-empty-buffer ()
     (interactive)
@@ -356,12 +444,16 @@
       (org-mode)
       ))
 
+  (defun insert-date ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%d/%m/%Y %H:%M")))
 
 #+end_src
 
-** Menu 
+** Menu
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
     (setq inhibit-startup-message t)
     (tool-bar-mode -1)
     (scroll-bar-mode -1)
@@ -372,7 +464,7 @@
 ;; It's ok...
 ")
 #+end_src
-** Scrolling 
+** Scrolling
 
 #+begin_src emacs-lisp
 
@@ -380,13 +472,13 @@
   (global-set-key "\M-p" "\C-u1\M-v")
 
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-  (setq mouse-wheel-progressive-speed nil) 
+  (setq mouse-wheel-progressive-speed nil)
 
   (setq scroll-conservatively 10000
         scroll-preserve-screen-position t)
 #+end_src
 
-** Mark 
+** Mark
 
 #+begin_src emacs-lisp
 
@@ -395,8 +487,8 @@
 #+end_src
 
 ** Disabled Commands
-
-#+begin_src emacs-lisp 
+   
+#+begin_src emacs-lisp
 (put 'narrow-to-region 'disabled nil)          ; C-x n n
 (put 'narrow-to-page 'disabled nil)            ; C-x n p
 (put 'scroll-left 'disabled nil)               ; C-x > or <
@@ -405,29 +497,28 @@
 (put 'set-goal-column 'disabled nil)           ; C-x C-n ==> disable with C-u
 (put 'dired-find-alternate-file 'disabled nil) ; a in dired
 #+end_src
-
-** Backups 
+** Backups
 #+begin_src emacs-lisp
 
     ;;backups
     (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
     (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+end_src
-** Utf-8 
+** Utf-8
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
     ;;use utf-8
-    (setq locale-coding-system 'utf-8) 
-    (set-terminal-coding-system 'utf-8) 
-    (set-keyboard-coding-system 'utf-8) 
-    (set-selection-coding-system 'utf-8) 
+    (setq locale-coding-system 'utf-8)
+    (set-terminal-coding-system 'utf-8)
+    (set-keyboard-coding-system 'utf-8)
+    (set-selection-coding-system 'utf-8)
     (prefer-coding-system 'utf-8)
 
 #+end_src
 ** Personal
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
     ;;Personal Information
-    (setq user-full-name "Zachary Dawood" 
+    (setq user-full-name "Zachary Dawood"
           user-mail-address "zachary.dawood@gmail.com")
 
 #+end_src
@@ -435,40 +526,47 @@
 
 Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
   (setq explicit-shell-file-name "/bin/bash")
 
   ;; Getting shell to use the correct path
   (defun set-exec-path-from-shell-PATH ()
    (let ((path-from-shell (replace-regexp-in-string
-                           "[ \t\n]*$"
-                            ""
-                            (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+			   "[ \t\n]*$"
+			    ""
+			    (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
       (setenv "PATH" path-from-shell)
       (setq eshell-path-env path-from-shell) ; for eshell users
       (setq exec-path (split-string path-from-shell path-separator))))
 
   (when window-system (set-exec-path-from-shell-PATH))
 
-  ;; (use-package exec-path-from-shell
-  ;;   :init (when (memq window-system '(mac ns x))
-  ;;           (exec-path-from-shell-initialize)))
 #+end_src
-** Bindings 
-   
-#+begin_src emacs-lisp 
+** Bindings
+
+#+begin_src emacs-lisp
 
   (global-set-key (kbd "C-c b") 'previous-buffer)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c d") 'dired-jump)
   (global-set-key (kbd "C-c e") 'ibuffer)
   (global-set-key (kbd "C-c f") 'next-buffer)
+  (global-set-key (kbd "C-c j") 'clean-buffer-list)
   (global-set-key (kbd "C-c k") 'kill-this-buffer)
   (global-set-key (kbd "C-c n") 'new-empty-buffer)
   (global-set-key (kbd "C-c m") 'flyspell-mode)
   (global-set-key (kbd "C-c o") 'calc)
+  (global-set-key (kbd "C-c p") 'calculator)
+  (global-set-key (kbd "C-c q") 'read-only-mode)
   (global-set-key (kbd "C-c r") 'recentf-open-files)
   (global-set-key (kbd "C-c v") 'visual-line-mode)
+  (global-set-key (kbd "C-c x") 'imenu)
+  (global-set-key (kbd "C-c y") 'rename-buffer)
+
+  (global-set-key (kbd "C-c \S-a") 'clone-indirect-buffer)
+  (global-set-key (kbd "C-c \S-c") 'calendar)
+  (global-set-key (kbd "C-c \S-d") 'diary)
+  (global-set-key (kbd "C-c \S-p") 'proced)
 
   (global-set-key (kbd "C-x k") 'kill-other-buffers)
 
@@ -478,13 +576,14 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 		  (lambda () (interactive) (next-line -5)))
 
 #+end_src
-** Misc 
-#+begin_src emacs-lisp 
+
+** Misc
+#+begin_src emacs-lisp
   ;;Frame Size
   (when window-system (set-frame-size (selected-frame) 120 50))
 
   ;;This is for line wrapping
-  (global-visual-line-mode)
+  (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
   (diminish 'visual-line-mode)
   (diminish 'auto-revert-mode)
 
@@ -492,6 +591,10 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   (setq-default cursor-type 'bar)
   (blink-cursor-mode 1)
+
+
+  (setq confirm-kill-processes nil)
+
 
   ;;Go away
   (setq visible-bell t)
@@ -513,20 +616,21 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (setq-default major-mode 'org-mode)
 #+end_src
 
-** Zone 
+** Zone
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 
   ;; (use-package zone
   ;;   :ensure t
   ;;   :config
   ;;   (zone-when-idle 10)
+  ;;   (add-hook 'zone-mode-hook 'visual-line-mode)
   ;;   (setq zone-programs [zone-pgm-putz-with-case])
   ;;   )
 
 #+end_src
 
-** Server 
+** Server
 
 #+begin_src emacs-lisp
   (server-start
@@ -538,8 +642,3 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
                (when server-buffer-clients
                  (local-set-key (kbd "C-x k") 'server-edit)))))
 #+end_src
-
-  
-   
-   
-   

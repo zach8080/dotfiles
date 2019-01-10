@@ -7,6 +7,10 @@ VISUAL='emacs'
 
 bindkey -e
 
+export PATH=$PATH:/usr/local/bin
+
+
+
 setopt interactivecomments
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
@@ -16,8 +20,13 @@ zstyle :compinstall filename '/Users/zachary.dawood/.zshrc'
 autoload -Uz compinit
 compinit
 
-# ALIASES
+# FUNCTIONS
 
+gropdfms() {
+        groff -ms "$1".ms -T pdf > "$1".pdf
+}
+
+# ALIASES
 alias c='clear'
 alias e='emacsclient -t'
 alias q='exit'
@@ -38,3 +47,4 @@ PROMPT='%F{cyan}!%F{5}%n%F{7}[%F{red}%1~%F{7}]%F{7}>%F{7}'
 #STARTUP
 
 
+#neofetch
