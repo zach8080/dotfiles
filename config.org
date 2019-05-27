@@ -396,11 +396,10 @@
   (setq ls-lisp-format-time-list '("%b %e %H:%M" "%b %e  %Y"))
   (setq ls-lisp-use-localized-time-format t)
 
-  (define-key dired-mode-map (kbd "u") 'dired-up-directory)
+  ;;(define-key dired-mode-map (kbd "u") 'dired-up-directory)
 
   ;;(add-hook 'dired-mode-hook 'dired-hide-details-mode)
 #+end_src
-
 ** Misc
 
 #+BEGIN_SRC emacs-lisp
@@ -477,7 +476,7 @@
 #+begin_src emacs-lisp
     (setq inhibit-startup-message t)
     (tool-bar-mode -1)
-    (scroll-bar-mode -1)
+    (toggle-scroll-bar -1)
     ;;(menu-bar-mode -1)
     (tooltip-mode -1)
 
@@ -569,8 +568,6 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   (global-unset-key (kbd "C-z"))
 
-
-
   (global-set-key (kbd "C-c b") 'previous-buffer)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c d") 'dired-jump)
@@ -595,6 +592,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c \S-f") 'dired)
   (global-set-key (kbd "C-c \S-p") 'proced)
   (global-set-key (kbd "C-c \S-s") 'speedbar)
+  (global-set-key (kbd "C-c \S-l") 'eval-region)
 
   (global-set-key (kbd "C-x k") 'kill-other-buffers)
 
@@ -642,6 +640,17 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   ;;new buffer mode
   (setq-default major-mode 'org-mode)
+
+  ;;Birthday
+  (when (string= "08-08" (format-time-string "%m-%d"))
+    (run-with-idle-timer
+     1 nil
+     (lambda ()
+       (let (cursor-type)
+	 (animate-birthday-present Zach)))))
+
+
+  (setq clean-buffer-list-delay-general 1)
 #+end_src
 
 ** Zone
