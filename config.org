@@ -241,7 +241,7 @@
 
     :config
     ;;(setq multi-term-program "/bin/bash")
-    (setq multi-term-program "/usr/local/bin/zsh")
+    (setq multi-term-program "/usr/bin/zsh")
     (setq multi-term-dedicated-close-back-to-open-buffer-p t)
     (setq multi-term-dedicated-select-after-open-p t)
     (setq multi-term-dedicated-window-height 10))
