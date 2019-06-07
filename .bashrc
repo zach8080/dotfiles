@@ -22,7 +22,6 @@ alias vi='vim'
 alias rm='rm -I --preserve-root'
 
 alias cdocs='cd ~/Documents'
-alias cnotes='cd ~/Documents/Year11Notes'
 alias cdots='cd ~/.dotfiles/'
 alias chome='cd ~/'
 

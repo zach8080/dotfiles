@@ -36,7 +36,6 @@ alias lh='ls -Flh'
 alias vi='vim'
 #alias rm='rm -I --preserve-root'
 alias docs='cd ~/Documents'
-alias notes='cd ~/Documents/Year11Notes/'
 alias dots='cd ~/.dotfiles/'
 alias home='cd ~/'
 

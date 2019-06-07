@@ -21,7 +21,7 @@
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(org-agenda-files (quote ("~/Google Drive/_.org")))
+ '(org-agenda-files nil)
  '(package-selected-packages
    (quote
     (yasnippet-snippets cloc 2048-game esup emms ac-org zenburn-theme yasnippet which-key web-mode use-package speed-type spacegray-theme ox-twbs magit iedit hungry-delete ace-window ac-helm)))

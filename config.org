@@ -154,7 +154,7 @@
 
       ;;Agenda Files
       (global-set-key (kbd "C-c a") 'org-agenda)
-      '(org-agenda-files (quote ("~/Google Drive/_.org"))))
+      '(org-agenda-files (quote ("~/Documents/_.org"))))
 
   ;; Bootstrap HTML Org Export
     (use-package ox-twbs
@@ -224,7 +224,6 @@
     (setq sml/shorten-directory t)
     (setq sml/shorten-modes t)
     (column-number-mode 1)
-    (add-to-list 'sml/replacer-regexp-list '("^~/Documents/Year11Notes/" ":11Notes") t)
     (add-to-list 'sml/replacer-regexp-list '("^~/.dotfiles/" ":dots:") t)
     (sml/setup))
 
