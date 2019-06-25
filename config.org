@@ -142,19 +142,19 @@
 
       ;;(setq org-cycle-include-plain-lists 'integrate)
 
-      (setq org-hide-emphasis-markers t)
+      ;;(setq org-hide-emphasis-markers t)
       ;;(setq org-startup-with-inline-images t)
       ;;(setq org-startup-with-latex-preview t)
 
     
     
       ;;Notes and Capture
-      (setq org-default-notes-file (concat org-directory "~/Google Drive/_.org"))
+      (setq org-default-notes-file (concat org-directory "~/Sync/_.org"))
       (define-key global-map "\C-c c" 'org-capture)
 
       ;;Agenda Files
       (global-set-key (kbd "C-c a") 'org-agenda)
-      '(org-agenda-files (quote ("~/Documents/_.org"))))
+      '(org-agenda-files (quote ("~/Sync/_.org"))))
 
   ;; Bootstrap HTML Org Export
     (use-package ox-twbs
@@ -592,12 +592,13 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c \S-p") 'proced)
   (global-set-key (kbd "C-c \S-s") 'speedbar)
   (global-set-key (kbd "C-c \S-l") 'eval-region)
+  (global-set-key (kbd "C-c \S-g") 'goto-line)
 
   (global-set-key (kbd "C-x k") 'kill-other-buffers)
 
-  (global-set-key (kbd "<s-down>")
+  (global-set-key (kbd "<prior>")
 		  (lambda () (interactive) (next-line 5)))
-  (global-set-key (kbd "<s-up>")
+  (global-set-key (kbd "<next>")
 		  (lambda () (interactive) (next-line -5)))
 
 #+end_Src
