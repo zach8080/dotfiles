@@ -68,6 +68,7 @@
 
 
 #+end_src
+
 ** Text-Completion
 
 #+BEGIN_SRC emacs-lisp
@@ -95,6 +96,7 @@
     (company-auctex-init))
 
 #+end_src
+
 ** Yasnippet
 
 #+BEGIN_SRC emacs-lisp
@@ -121,6 +123,7 @@
            ("\\.jinja\\'" . web-mode)
            ("\\.php\\'" . web-mode)))
 #+END_SRC
+
 ** Org
 
 #+BEGIN_SRC emacs-lisp
@@ -170,6 +173,7 @@
 	;;(add-hook 'org-mode-hook 'flyspell-mode)
 
 #+END_SRC
+
 ** Magit
 #+BEGIN_SRC emacs-lisp
   ;;Git Control
@@ -179,6 +183,7 @@
     :bind (("C-c g" . magit-status)
 	   ("C-c l" . magit-log)))
 #+END_SRC
+
 ** Auctex
 
 #+begin_src emacs-lisp
@@ -202,20 +207,30 @@
 		  (define-key LaTeX-mode-map (kbd "$") 'self-insert-command)))
 
 #+end_src
+
 ** Themes
 
 #+BEGIN_SRC emacs-lisp
   (use-package spacemacs-theme
     :ensure t
-    :defer 1
-    :config
-    ;;(load-theme 'spacemacs-dark t) this is fucking up for some reason so its after
-    (add-to-list 'default-frame-alist '(ns-appearance . dark))
-    (set-face-attribute 'default nil
-		  :family "Roboto Mono Light" :height 230 :weight 'normal))
+    :defer 1)
 
-  (load-theme 'spacemacs-dark t)
-#+END_SRC
+  (add-to-list 'default-frame-alist '(ns-appearance . dark))
+    (set-face-attribute 'default nil
+			:family "Roboto Mono Light" :height 120 :weight 'normal)
+
+    (custom-set-variables
+   '(spacemacs-theme-comment-bg nil)
+   '(spacemacs-theme-org-bold nil)
+   '(spacemacs-theme-org-height nil)
+   '(spacemacs-theme-org-highlight nil)
+   '(spacemacs-theme-org-height nil)
+   '(spacemacs-theme-org-priority-bold nil))
+
+    (load-theme 'spacemacs-dark t)
+
+
+  #+END_SRC
 
 ** Mode-line
 
@@ -250,6 +265,7 @@
     (setq multi-term-dedicated-window-height 10))
 
 #+end_src
+
 ** PDF-Tools
 
 #+begin_src emacs-lisp
@@ -362,6 +378,7 @@
     (setq deft-extensions '("org" "txt"))
     )
 #+end_src
+
 ** Nov
 
 #+begin_src emacs-lisp
@@ -383,6 +400,7 @@
   (setq recentf-max-menu-items 25)
 
 #+end_src
+
 ** Dired
 
 #+begin_src emacs-lisp
@@ -403,6 +421,7 @@
 
   ;;(add-hook 'dired-mode-hook 'dired-hide-details-mode)
 #+end_src
+
 ** Misc
 
 #+BEGIN_SRC emacs-lisp
@@ -447,6 +466,7 @@
     :bind
     ("C-c w" . wttrin))
 #+END_SRC
+
 * Defaults
 ** Functions
 
@@ -487,6 +507,7 @@
 ;; It's ok...
 ")
 #+end_src
+
 ** Scrolling
 
 #+begin_src emacs-lisp
@@ -520,6 +541,7 @@
 (put 'set-goal-column 'disabled nil)           ; C-x C-n ==> disable with C-u
 (put 'dired-find-alternate-file 'disabled nil) ; a in dired
 #+end_src
+
 ** Backups
 #+begin_src emacs-lisp
 
@@ -527,6 +549,7 @@
     (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
     (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+end_src
+
 ** Utf-8
 
 #+begin_src emacs-lisp
@@ -538,6 +561,7 @@
     (prefer-coding-system 'utf-8)
 
 #+end_src
+
 ** Personal
 #+begin_src emacs-lisp
     ;;Personal Information
@@ -545,6 +569,7 @@
           user-mail-address "zachary.dawood@gmail.com")
 
 #+end_src
+
 ** Shell
 
 Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
@@ -565,6 +590,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (when window-system (set-exec-path-from-shell-PATH))
 
 #+end_src
+
 ** Bindings
 
 #+begin_src emacs-lisp
@@ -684,3 +710,4 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
                (when server-buffer-clients
                  (local-set-key (kbd "C-x k") 'server-edit)))))
 #+end_src
+
