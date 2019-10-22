@@ -9,8 +9,6 @@ bindkey -e
 
 export PATH=$PATH:/usr/local/bin
 
-
-
 setopt interactivecomments
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
@@ -44,6 +42,5 @@ alias home='cd ~/'
 PROMPT='%F{cyan}!%F{5}%n%F{7}[%F{red}%1~%F{7}]%F{7}>%F{7}'
 
 #STARTUP
-
 
 #neofetch

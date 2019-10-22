@@ -205,12 +205,16 @@
 ** Themes
 
 #+BEGIN_SRC emacs-lisp
-  (use-package zenburn-theme
+  (use-package spacemacs-theme
     :ensure t
-    :config (load-theme 'zenburn t)
+    :defer 1
+    :config
+    ;;(load-theme 'spacemacs-dark t) this is fucking up for some reason so its after
     (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (set-face-attribute 'default nil
-		  :family "Roboto Mono" :height 120 :weight 'normal))
+		  :family "Roboto Mono Light" :height 230 :weight 'normal))
+
+  (load-theme 'spacemacs-dark t)
 #+END_SRC
 
 ** Mode-line
@@ -593,20 +597,21 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c \S-s") 'speedbar)
   (global-set-key (kbd "C-c \S-l") 'eval-region)
   (global-set-key (kbd "C-c \S-g") 'goto-line)
+  (global-set-key (kbd "C-c \S-w") 'eww)
 
   (global-set-key (kbd "C-x k") 'kill-other-buffers)
 
   (global-set-key (kbd "<prior>")
-		  (lambda () (interactive) (next-line 5)))
-  (global-set-key (kbd "<next>")
 		  (lambda () (interactive) (next-line -5)))
+  (global-set-key (kbd "<next>")
+		  (lambda () (interactive) (next-line 5)))
 
 #+end_Src
 
 ** Misc
 #+begin_src emacs-lisp
   ;;Frame Size
-  (when window-system (set-frame-size (selected-frame) 120 50))
+  (when window-system (set-frame-size (selected-frame) 120 40))
 
   ;;This is for line wrapping
   (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
