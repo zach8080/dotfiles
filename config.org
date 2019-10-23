@@ -149,20 +149,21 @@
       ;;(setq org-startup-with-inline-images t)
       ;;(setq org-startup-with-latex-preview t)
 
-    
-    
+
+
       ;;Notes and Capture
       (setq org-default-notes-file (concat org-directory "~/Sync/_.org"))
       (define-key global-map "\C-c c" 'org-capture)
 
       ;;Agenda Files
       (global-set-key (kbd "C-c a") 'org-agenda)
-      '(org-agenda-files (quote ("~/Sync/_.org"))))
+
+      )
 
   ;; Bootstrap HTML Org Export
-    (use-package ox-twbs
-      :ensure t
-      :defer 4)
+    ;; (use-package ox-twbs
+    ;;   :ensure t
+    ;;   :defer 4)
 
       ;;Execute embedded python
       ;;(org-babel-do-load-languages
@@ -227,9 +228,10 @@
    '(spacemacs-theme-org-height nil)
    '(spacemacs-theme-org-priority-bold nil))
 
-    (load-theme 'spacemacs-dark t)
+  (load-theme 'spacemacs-dark t)
 
-
+  (custom-set-faces
+   '(default ((t (:family "Roboto Mono" :foundry "pyrs" :slant normal :weight normal :height 120 :width normal)))))
   #+END_SRC
 
 ** Mode-line
@@ -298,10 +300,10 @@
 ** Hyperbole
 
 #+begin_src emacs-lisp
-  (use-package hyperbole
-    :ensure t
-    :bind ("C-c h" . hyperbole)
-    :defer 1)
+  ;; (use-package hyperbole
+  ;;   :ensure t
+  ;;   :bind ("C-c h" . hyperbole)
+  ;;   :defer 1)
 #+end_src
 
 ** Ibuffer
@@ -380,7 +382,6 @@
 #+end_src
 
 ** Nov
-
 #+begin_src emacs-lisp
 
   (use-package nov
@@ -492,6 +493,9 @@
   (interactive)
   (insert (format-time-string "%d/%m/%Y %H:%M")))
 
+  (defun goto-todo ()
+    (interactive)
+    (find-file "~/Sync/_.org"))
 #+end_src
 
 ** Menu
@@ -602,6 +606,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c d") 'dired-jump)
   (global-set-key (kbd "C-c e") 'ibuffer)
   (global-set-key (kbd "C-c f") 'next-buffer)
+  (global-set-key (kbd "C-c h") 'help)
   (global-set-key (kbd "C-c j") 'clean-buffer-list)
   (global-set-key (kbd "C-c k") 'kill-this-buffer)
   (global-set-key (kbd "C-c n") 'new-empty-buffer)
@@ -616,7 +621,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 
   (global-set-key (kbd "C-c \S-a") 'clone-indirect-buffer)
   (global-set-key (kbd "C-c \S-c") 'calendar)
-  (global-set-key (kbd "C-c \S-d") 'diary)
+  (global-set-key (kbd "C-c \S-d") 'insert-date)
   (global-set-key (kbd "C-c \S-e") 'eshell)
   (global-set-key (kbd "C-c \S-f") 'dired)
   (global-set-key (kbd "C-c \S-p") 'proced)
@@ -624,6 +629,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c \S-l") 'eval-region)
   (global-set-key (kbd "C-c \S-g") 'goto-line)
   (global-set-key (kbd "C-c \S-w") 'eww)
+  (global-set-key (kbd "C-c \S-v") 'goto-todo)
 
   (global-set-key (kbd "C-x k") 'kill-other-buffers)
 

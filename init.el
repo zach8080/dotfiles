@@ -11,6 +11,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
  '(company-quickhelp-color-background "#4F4F4F")
  '(company-quickhelp-color-foreground "#DCDCCC")
  '(custom-safe-themes
@@ -21,12 +22,19 @@
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(org-agenda-files nil)
+ '(org-agenda-files (quote ("~/Sync/_.org")))
  '(package-selected-packages
    (quote
-    (spacemacs-theme yasnippet-snippets esup emms ac-org zenburn-theme yasnippet web-mode use-package speed-type spacegray-theme magit iedit hungry-delete ace-window ac-helm ivy ace-window auctex company company-auctex deft hyperbole ido-completing-read+ use-package smex smart-mode-line swiper wttrin ag multi-term diminish nov)))
+    (spacemacs-theme yasnippet-snippets esup emms ac-org zenburn-theme yasnippet web-mode use-package speed-type spacegray-theme magit iedit hungry-delete ace-window ac-helm ivy ace-window auctex company company-auctex deft ido-completing-read+ use-package smex smart-mode-line swiper wttrin ag multi-term diminish nov)))
  '(pdf-tools-handle-upgrades nil)
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(show-paren-mode t)
+ '(spacemacs-theme-comment-bg nil)
+ '(spacemacs-theme-org-bold nil)
+ '(spacemacs-theme-org-height nil)
+ '(spacemacs-theme-org-highlight nil)
+ '(spacemacs-theme-org-priority-bold nil)
+ '(tool-bar-mode nil)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote
@@ -54,5 +62,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Roboto Mono" :foundry "pyrs" :slant normal :weight normal :height 120 :width normal)))))
 (put 'dired-find-alternate-file 'disabled nil)
