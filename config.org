@@ -406,21 +406,18 @@
 
 #+begin_src emacs-lisp
 
-  ;; using ls-lisp with these settings gives case-insensitve
-  ;; sorting on OS X
-  (require 'ls-lisp)
-  (setq dired-listing-switches "-alhG")
-  (setq ls-lisp-use-insert-directory-program nil)
-  (setq ls-lisp-ignore-case t)
-  (setq ls-lisp-use-string-collate nil)
-  ;; customise the appearance of the listing
-  (setq ls-lisp-verbosity 'nil)
-  (setq ls-lisp-format-time-list '("%b %e %H:%M" "%b %e  %Y"))
-  (setq ls-lisp-use-localized-time-format t)
+  (define-key dired-mode-map (kbd "1") (lambda () (interactive) (find-alternate-file "~/")))
+  (define-key dired-mode-map (kbd "2") (lambda () (interactive) (find-alternate-file "~/Documents")))
+  (define-key dired-mode-map (kbd "3") (lambda () (interactive) (find-alternate-file "~/Downloads")))
+  (define-key dired-mode-map (kbd "4") (lambda () (interactive) (find-alternate-file "~/dotfiles")))
+  (define-key dired-mode-map (kbd "5") (lambda () (interactive) (find-alternate-file "~/Sync")))
+  (define-key dired-mode-map (kbd "6") (lambda () (interactive) (find-alternate-file "~/Documents/UofT")))
+  (define-key dired-mode-map (kbd "7") (lambda () (interactive) (find-alternate-file "~/dotfiles")))
+  (define-key dired-mode-map (kbd "8") (lambda () (interactive) (find-alternate-file "~/.config")))
+  (define-key dired-mode-map (kbd "9") (lambda () (interactive) (find-alternate-file "~/Documents/SummerCamp")))
+  (define-key dired-mode-map (kbd "0") (lambda () (interactive) (find-alternate-file "~/Documents/Code/")))
 
-  ;;(define-key dired-mode-map (kbd "u") 'dired-up-directory)
-
-  ;;(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+  (define-key dired-mode-map (kbd ",") 'dired-hide-details-mode)
 #+end_src
 
 ** Misc
@@ -491,7 +488,17 @@
   (defun insert-date ()
   "Insert date at point."
   (interactive)
-  (insert (format-time-string "%d/%m/%Y %H:%M")))
+  (insert (format-time-string "%d/%m/%y")))
+
+  (defun insert-time ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%H:%M")))
+
+  (defun insert-date-time ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%d/%m/%Y %H:%M:%S")))
 
   (defun goto-todo ()
     (interactive)
@@ -618,16 +625,16 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c v") 'visual-line-mode)
   (global-set-key (kbd "C-c x") 'imenu)
   (global-set-key (kbd "C-c y") 'rename-buffer)
-
+  (global-set-key (kbd "C-c 1") 'insert-date)
+  (global-set-key (kbd "C-c 2") 'insert-time)
+  (global-set-key (kbd "C-c 3") 'insert-date-time)
   (global-set-key (kbd "C-c \S-a") 'clone-indirect-buffer)
   (global-set-key (kbd "C-c \S-c") 'calendar)
-  (global-set-key (kbd "C-c \S-d") 'insert-date)
   (global-set-key (kbd "C-c \S-e") 'eshell)
-  (global-set-key (kbd "C-c \S-f") 'dired)
-  (global-set-key (kbd "C-c \S-p") 'proced)
-  (global-set-key (kbd "C-c \S-s") 'speedbar)
-  (global-set-key (kbd "C-c \S-l") 'eval-region)
   (global-set-key (kbd "C-c \S-g") 'goto-line)
+  (global-set-key (kbd "C-c \S-p") 'proced)
+  (global-set-key (kbd "C-c \S-l") 'eval-region)
+  (global-set-key (kbd "C-c \S-s") 'speedbar)
   (global-set-key (kbd "C-c \S-w") 'eww)
   (global-set-key (kbd "C-c \S-v") 'goto-todo)
 
@@ -707,13 +714,6 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 ** Server
 
 #+begin_src emacs-lisp
-  (server-start
-
-   (add-hook 'server-switch-hook
-             (lambda ()
-               (when (current-local-map)
-                 (use-local-map (copy-keymap (current-local-map))))
-               (when server-buffer-clients
-                 (local-set-key (kbd "C-x k") 'server-edit)))))
+  (server-start)
 #+end_src
 

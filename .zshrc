@@ -27,6 +27,7 @@ gropdfms() {
 # ALIASES
 alias c='clear'
 alias e='emacsclient -t'
+alias t='tmux'
 alias q='exit'
 alias ls='ls -F'
 alias la='ls -Fa'
