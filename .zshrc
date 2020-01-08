@@ -34,7 +34,7 @@ alias la='ls -Fa'
 alias lh='ls -Flh'
 alias vi='vim'
 #alias rm='rm -I --preserve-root'
-alias docs='cd ~/Documents'
+alias docs='cd ~/documents'
 alias dots='cd ~/.dotfiles/'
 alias home='cd ~/'
 

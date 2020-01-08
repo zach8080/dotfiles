@@ -405,19 +405,9 @@
 ** Dired
 
 #+begin_src emacs-lisp
-
-  (define-key dired-mode-map (kbd "1") (lambda () (interactive) (find-alternate-file "~/")))
-  (define-key dired-mode-map (kbd "2") (lambda () (interactive) (find-alternate-file "~/Documents")))
-  (define-key dired-mode-map (kbd "3") (lambda () (interactive) (find-alternate-file "~/Downloads")))
-  (define-key dired-mode-map (kbd "4") (lambda () (interactive) (find-alternate-file "~/dotfiles")))
-  (define-key dired-mode-map (kbd "5") (lambda () (interactive) (find-alternate-file "~/Sync")))
-  (define-key dired-mode-map (kbd "6") (lambda () (interactive) (find-alternate-file "~/Documents/UofT")))
-  (define-key dired-mode-map (kbd "7") (lambda () (interactive) (find-alternate-file "~/dotfiles")))
-  (define-key dired-mode-map (kbd "8") (lambda () (interactive) (find-alternate-file "~/.config")))
-  (define-key dired-mode-map (kbd "9") (lambda () (interactive) (find-alternate-file "~/Documents/SummerCamp")))
-  (define-key dired-mode-map (kbd "0") (lambda () (interactive) (find-alternate-file "~/Documents/Code/")))
-
-  (define-key dired-mode-map (kbd ",") 'dired-hide-details-mode)
+  (require 'dired-x)
+  (setq dired-omit-files "^\\...+$")
+  (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 #+end_src
 
 ** Misc
@@ -502,7 +492,15 @@
 
   (defun goto-todo ()
     (interactive)
-    (find-file "~/Sync/_.org"))
+    (find-file "~/sync/_.org"))
+
+  (defun dired-open-file ()
+    "In dired, open the file named on this line."
+    (interactive)
+    (let* ((file (dired-get-filename nil t)))
+      (message "Opening %s..." file)
+      (call-process "xdg-open" nil 0 nil file)
+      (message "Opening %s done" file)))
 #+end_src
 
 ** Menu
@@ -645,6 +643,21 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "<next>")
 		  (lambda () (interactive) (next-line 5)))
 
+  (define-key dired-mode-map (kbd "1") (lambda () (interactive) (find-alternate-file "~/")))
+  (define-key dired-mode-map (kbd "2") (lambda () (interactive) (find-alternate-file "~/documents")))
+  (define-key dired-mode-map (kbd "3") (lambda () (interactive) (find-alternate-file "~/downloads")))
+  (define-key dired-mode-map (kbd "4") (lambda () (interactive) (find-alternate-file "~/dotfiles")))
+  (define-key dired-mode-map (kbd "5") (lambda () (interactive) (find-alternate-file "~/sync")))
+  (define-key dired-mode-map (kbd "6") (lambda () (interactive) (find-alternate-file "~/documents/uni")))
+  (define-key dired-mode-map (kbd "7") (lambda () (interactive) (find-alternate-file "~/dotfiles")))
+  (define-key dired-mode-map (kbd "8") (lambda () (interactive) (find-alternate-file "/run/media/zach")))
+  (define-key dired-mode-map (kbd "9") (lambda () (interactive) (find-alternate-file "~/documents/books/")))
+  (define-key dired-mode-map (kbd "0") (lambda () (interactive) (find-alternate-file "~/documents/code/")))
+
+
+  (define-key dired-mode-map (kbd ",") 'dired-hide-details-mode)
+  (define-key dired-mode-map (kbd "z") 'dired-open-file)
+  (define-key dired-mode-map (kbd "/") 'dired-omit-mode)
 #+end_Src
 
 ** Misc
