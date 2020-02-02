@@ -1,3 +1,4 @@
+
 #+TITLE: Zach's Emacs Config
 
 * Packages
@@ -128,50 +129,45 @@
 
 #+BEGIN_SRC emacs-lisp
 
-    (use-package org
-      :ensure t
-      :defer 2
-      :config
+  (use-package org
+    :ensure t
+    :defer 2
+    :config
 
-      ;;Add notes when task done
-      (setq org-log-done 'note)
-      (setq org-log-done 'time)
+    ;;Add notes when task done
+    (setq org-log-done 'note)
+    (setq org-log-done 'time)
 
-      ;;New Drawer Name
-      ;;(add-to-list 'org-drawers "LATEX")
+    ;;New Drawer Name
+    ;;(add-to-list 'org-drawers "LATEX")
 
-      ;;Follow links with RET
-      (setq org-return-follows-link t)
+    ;;Follow links with RET
+    (setq org-return-follows-link t)
 
-      ;;(setq org-cycle-include-plain-lists 'integrate)
+    ;;(setq org-cycle-include-plain-lists 'integrate)
 
-      ;;(setq org-hide-emphasis-markers t)
-      ;;(setq org-startup-with-inline-images t)
-      ;;(setq org-startup-with-latex-preview t)
+    ;;(setq org-hide-emphasis-markers t)
+    ;;(setq org-startup-with-inline-images t)
+    ;;(setq org-startup-with-latex-preview t)
 
 
 
-      ;;Notes and Capture
-      (setq org-default-notes-file (concat org-directory "~/Sync/_.org"))
-      (define-key global-map "\C-c c" 'org-capture)
+    ;;Notes and Capture
+    (setq org-default-notes-file (concat org-directory "~/sync/_.org"))
+    (define-key global-map "\C-c c" 'org-capture)
 
-      ;;Agenda Files
-      (global-set-key (kbd "C-c a") 'org-agenda)
+    ;;Agenda Files
+    (global-set-key (kbd "C-c a") 'org-agenda)
 
-      )
-
-  ;; Bootstrap HTML Org Export
-    ;; (use-package ox-twbs
-    ;;   :ensure t
-    ;;   :defer 4)
-
-      ;;Execute embedded python
-      ;;(org-babel-do-load-languages
-	;; 'org-babel-load-languages
-	;; '((python . t)))
-
-	;;Flyspell Hook
-	;;(add-hook 'org-mode-hook 'flyspell-mode)
+    (setq org-capture-templates
+	  '(("u" "uni-todo" entry (file+olp "~/sync/_.org" "other" "uni-todo")
+	   "*** TODO %?\n DEADLINE: %^t")
+	   ("e" "events" entry (file+olp "~/sync/_.org" "other" "events")
+	   "*** %?\n SCHEDULED: %^t")	   
+	   ("o" "other-todo" entry (file+olp "~/sync/_.org" "other" "other-todo")
+	   "*** TODO %?\n DEADLINE: %^t")
+	   ))
+    )
 
 #+END_SRC
 
@@ -190,22 +186,23 @@
 #+begin_src emacs-lisp
   ;; Emacs Tex Integratiokn
 
-  (use-package tex
-     :defer t
-     :ensure auctex
-     :config
-     (setq TeX-auto-save t)
-     (setq TeX-parse-self t)
-     (setq-default TeX-master nil)
-  ;; (setq-default TeX-electric-math t)
+  ;; no longer use latex, switched to groff
+  ;; (use-package tex
+  ;;    :defer t
+  ;;    :ensure auctex
+  ;;    :config
+  ;;    (setq TeX-auto-save t)
+  ;;    (setq TeX-parse-self t)
+  ;;    (setq-default TeX-master nil)
+  ;; ;; (setq-default TeX-electric-math t)
 
 
-     (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-     (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-     (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode))
-     (add-hook 'LaTeX-mode-hook
-	       '(lambda ()
-		  (define-key LaTeX-mode-map (kbd "$") 'self-insert-command)))
+  ;;    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+  ;;    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+  ;;    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode))
+  ;;    (add-hook 'LaTeX-mode-hook
+  ;; 	     '(lambda ()
+  ;; 		(define-key LaTeX-mode-map (kbd "$") 'self-insert-command)))
 
 #+end_src
 
@@ -245,7 +242,7 @@
     (setq sml/shorten-directory t)
     (setq sml/shorten-modes t)
     (column-number-mode 1)
-    (add-to-list 'sml/replacer-regexp-list '("^~/.dotfiles/" ":dots:") t)
+    (add-to-list 'sml/replacer-regexp-list '("^~/dotfiles/" ":dots:") t)
     (sml/setup))
 
 #+end_src
@@ -274,26 +271,7 @@
 
  ;; Not working for some reason - fix later
 
-  ;; (use-package pdf-tools
-  ;;   :ensure t)
-
-  ;; Install epdfinfo via 'brew install pdf-tools' and then install the
-  ;; pdf-tools elisp via the use-package below. To upgrade the epdfinfo
-  ;; server, just do 'brew upgrade pdf-tools' prior to upgrading to newest
-  ;; pdf-tools package using Emacs package system. If things get messed
-  ;; up, just do 'brew uninstall pdf-tools', wipe out the elpa
-  ;; pdf-tools package and reinstall both as at the start.
-  ;; (use-package pdf-tools
-  ;;   :ensure t
-  ;;   :defer 4
-  ;;   :config
-  ;;   (custom-set-variables
-  ;;    '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
-  ;;   (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
-  ;;   (setq pdf-view-use-unicode-ligther nil)
-  ;;   ;; more fine-grained zooming
-  ;;   (setq pdf-view-resize-factor 1.1)
-  ;;   (pdf-tools-install))
+ 
 
 #+end_src
 
@@ -326,15 +304,9 @@
 		    (mode . dired-mode))
 
 
-		   ("School"
-		    (filename . "Documents/Year11Notes/"))
+		   ("Uni"
+		    (filename . "documents/uni/"))
 
-		   ("Text" ;; all org-related buffers
-		    (or
-		     (mode . org-mode)
-		     (mode . text-mode)
-
-		     ))
 		    ("Special" (name . "*"))
 
 		   ))))
@@ -407,6 +379,7 @@
 #+begin_src emacs-lisp
   (require 'dired-x)
   (setq dired-omit-files "^\\...+$")
+  (setq dired-listing-switches "-alh")
   (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 #+end_src
 
@@ -490,6 +463,10 @@
   (interactive)
   (insert (format-time-string "%d/%m/%Y %H:%M:%S")))
 
+  (defun frame-resize ()
+    (interactive)
+    (set-frame-size (selected-frame) 120 40))
+
   (defun goto-todo ()
     (interactive)
     (find-file "~/sync/_.org"))
@@ -501,6 +478,17 @@
       (message "Opening %s..." file)
       (call-process "xdg-open" nil 0 nil file)
       (message "Opening %s done" file)))
+
+  (defun dired-sort ()
+    (interactive)
+    (let ($sort-by $arg)
+      (setq $sort-by (ido-completing-read "Sort by:" '( "date" "size" "name" )))
+      (cond
+       ((equal $sort-by "name") (setq $arg "-Al "))
+       ((equal $sort-by "date") (setq $arg "-Al -t"))
+       ((equal $sort-by "size") (setq $arg "-Al -S"))
+       (t (error "logic error 09535" )))
+      (dired-sort-other $arg )))
 #+end_src
 
 ** Menu
@@ -628,10 +616,12 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c 3") 'insert-date-time)
   (global-set-key (kbd "C-c \S-a") 'clone-indirect-buffer)
   (global-set-key (kbd "C-c \S-c") 'calendar)
+  (global-set-key (kbd "C-c \S-d") 'ido-dired)
   (global-set-key (kbd "C-c \S-e") 'eshell)
   (global-set-key (kbd "C-c \S-g") 'goto-line)
   (global-set-key (kbd "C-c \S-p") 'proced)
   (global-set-key (kbd "C-c \S-l") 'eval-region)
+  (global-set-key (kbd "C-c \S-r") 'frame-resize)
   (global-set-key (kbd "C-c \S-s") 'speedbar)
   (global-set-key (kbd "C-c \S-w") 'eww)
   (global-set-key (kbd "C-c \S-v") 'goto-todo)
@@ -658,6 +648,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (define-key dired-mode-map (kbd ",") 'dired-hide-details-mode)
   (define-key dired-mode-map (kbd "z") 'dired-open-file)
   (define-key dired-mode-map (kbd "/") 'dired-omit-mode)
+  (define-key dired-mode-map (kbd "s") 'dired-sort)
 #+end_Src
 
 ** Misc

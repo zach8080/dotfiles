@@ -22,7 +22,7 @@
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
- '(org-agenda-files (quote ("~/Sync/_.org")))
+ '(org-agenda-files (quote ("~/sync/_.org")))
  '(package-selected-packages
    (quote
     (spacemacs-theme yasnippet-snippets esup emms ac-org zenburn-theme yasnippet web-mode use-package speed-type spacegray-theme magit iedit hungry-delete ace-window ac-helm ivy ace-window auctex company company-auctex deft ido-completing-read+ use-package smex smart-mode-line swiper wttrin ag multi-term diminish nov)))

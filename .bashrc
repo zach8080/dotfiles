@@ -20,6 +20,7 @@ alias la='ls -Fa'
 alias lh='ls -Falh'
 alias vi='vim'
 alias rm='rm -I --preserve-root'
+alias q='exit'
 
 alias cdocs='cd ~/Documents'
 alias cdots='cd ~/.dotfiles/'
