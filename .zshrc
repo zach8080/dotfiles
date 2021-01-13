@@ -18,10 +18,18 @@ zstyle :compinstall filename '/Users/zachary.dawood/.zshrc'
 autoload -Uz compinit
 compinit
 
+
+
 # FUNCTIONS
 
 gropdfms() {
         groff -ms "$1".ms -T pdf > "$1".pdf
+}
+
+spotui() {
+    killall -q spotifyd
+    spotifyd
+    spt
 }
 
 # ALIASES
@@ -44,4 +52,4 @@ PROMPT='%F{cyan}!%F{5}%n%F{7}[%F{red}%1~%F{7}]%F{7}>%F{7}'
 
 #STARTUP
 
-#neofetch
+uname -a

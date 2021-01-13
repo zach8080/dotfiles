@@ -1,4 +1,3 @@
-
 #+TITLE: Zach's Emacs Config
 
 * Packages
@@ -30,26 +29,25 @@
 
 #+BEGIN_SRC emacs-lisp
 
-  (setq ido-create-new-buffer 'always)
-  (setq ido-enable-flex-matching t)
-  (setq ido-enable-prefix t)
-  (setq ido-everywhere t)
-  (ido-mode 1)
-  (ido-everywhere 1)
+    (setq ido-create-new-buffer 'always)
+    (setq ido-enable-flex-matching t)
+    (setq ido-everywhere t)
+    (ido-mode 1)
+    (ido-everywhere 1)
 
-  (use-package ido-completing-read+
-    :ensure t
-    :config
-    (ido-ubiquitous-mode 1)
-    (setq-default ido-auto-merge-work-directories-length -1))
+    (use-package ido-completing-read+
+      :ensure t
+      :config
+      (ido-ubiquitous-mode 1)
+      (setq-default ido-auto-merge-work-directories-length -1))
 
-  (use-package smex
-    :ensure t
-    :bind
-    ("M-x" . smex)
-    ("M-X" . smex-major-mode-commands)
-    :config
-    (smex-initialize))
+    (use-package smex
+      :ensure t
+      :bind
+      ("M-x" . smex)
+      ("M-X" . smex-major-mode-commands)
+      :config
+      (smex-initialize))
 
 #+end_src
 
@@ -74,27 +72,27 @@
 
 #+BEGIN_SRC emacs-lisp
 
-;; Auto-Complete Engine
+  ;; Auto-Complete Engine
 
-  (use-package company
-    :ensure t
-    :defer 3
-    :diminish (company-mode . "")
-    :init
-    (setq company-idle-delay 0.3)
-    (setq company-begin-commands '(self-insert-command))
-    (setq company-minimum-prefix-length 1)
-    (setq company-tooltip-align-annotations t)
-    (setq company-tooltip-limit 20)
-    (setq company-dabbrev-downcase nil)
-    :config
-    (global-company-mode))
+    (use-package company
+      :ensure t
+      :defer 3
+      :diminish (company-mode . "")
+      :init
+      (setq company-idle-delay 0.3)
+      (setq company-begin-commands '(self-insert-command))
+      (setq company-minimum-prefix-length 1)
+      (setq company-tooltip-align-annotations t)
+      (setq company-tooltip-limit 20)
+      (setq company-dabbrev-downcase nil)
+      :config
+      (global-company-mode))
 
-  (use-package company-auctex
-    :ensure t
-    :after (company tex)
-    :config
-    (company-auctex-init))
+    ;; (use-package company-auctex
+    ;;   :ensure t
+    ;;   :after (company tex)
+    ;;   :config
+    ;;   (company-auctex-init))
 
 #+end_src
 
@@ -383,6 +381,18 @@
   (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 #+end_src
 
+** TRAMP 
+
+#+BEGIN_SRC emacs-lisp :tangle yes
+(setq remote-file-name-inhibit-cache nil)
+(setq vc-ignore-dir-regexp
+      (format "%s\\|%s"
+                    vc-ignore-dir-regexp
+                    tramp-file-name-regexp))
+(setq tramp-verbose 1)
+#+END_SRC
+
+** Gnus
 ** Misc
 
 #+BEGIN_SRC emacs-lisp
@@ -412,20 +422,20 @@
     (add-hook 'speed-type-mode-hook 'visual-line-mode))
 
 
-  (use-package ag
-    :ensure t
-    :defer t)
+  ;; (use-package ag
+  ;;   :ensure t
+  ;;   :defer t)
 
 
-  (use-package wttrin
-    :ensure t
-    :commands (wttrin)
-    :init
-    (setq wttrin-default-cities '("Toronto"
-				  "Montreal"))
-    (setq wttrin-default-accept-language '("Accept-Language" . "en-CA"))
-    :bind
-    ("C-c w" . wttrin))
+  ;; (use-package wttrin
+  ;;   :ensure t
+  ;;   :commands (wttrin)
+  ;;   :init
+  ;;   (setq wttrin-default-cities '("Toronto"
+  ;; 				"Montreal"))
+  ;;   (setq wttrin-default-accept-language '("Accept-Language" . "en-CA"))
+  ;;   :bind
+  ;;   ("C-c w" . wttrin))
 #+END_SRC
 
 * Defaults
@@ -500,9 +510,7 @@
     ;;(menu-bar-mode -1)
     (tooltip-mode -1)
 
-    (setq initial-scratch-message ";; Wassup Buddy, you're home now
-;; It's ok...
-")
+    (setq initial-scratch-message ";; Relax, its all good")
 #+end_src
 
 ** Scrolling
@@ -718,6 +726,6 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
 ** Server
 
 #+begin_src emacs-lisp
-  (server-start)
+;;  (server-start)
 #+end_src
 
