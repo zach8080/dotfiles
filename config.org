@@ -147,6 +147,7 @@
     ;;(setq org-hide-emphasis-markers t)
     ;;(setq org-startup-with-inline-images t)
     ;;(setq org-startup-with-latex-preview t)
+    (add-hook 'org-mode-hook (lambda () (electric-indent-local-mode -1)))
 
 
 
