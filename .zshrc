@@ -26,11 +26,6 @@ gropdfms() {
         groff -ms "$1".ms -T pdf > "$1".pdf
 }
 
-spotui() {
-    killall -q spotifyd
-    spotifyd
-    spt
-}
 
 # ALIASES
 alias c='clear'
