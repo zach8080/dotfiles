@@ -264,16 +264,6 @@
 
 #+end_src
 
-** PDF-Tools
-
-#+begin_src emacs-lisp
-
- ;; Not working for some reason - fix later
-
- 
-
-#+end_src
-
 ** Hyperbole
 
 #+begin_src emacs-lisp
@@ -398,12 +388,6 @@
 
 #+BEGIN_SRC emacs-lisp
 
-  ;;Shows key commands when prompted
-  ;; (use-package which-key
-  ;;   :ensure t
-  ;;   :diminish (which-key-mode . "")
-  ;;   :config (which-key-mode))
-
   ;; ;;Better window switching
   (use-package ace-window
     :ensure t
@@ -421,12 +405,6 @@
     :defer t
     :config
     (add-hook 'speed-type-mode-hook 'visual-line-mode))
-
-
-  ;; (use-package ag
-  ;;   :ensure t
-  ;;   :defer t)
-
 
   ;; (use-package wttrin
   ;;   :ensure t
