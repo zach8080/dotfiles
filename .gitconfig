@@ -2,6 +2,6 @@
 	name = zach8080
 	email = zachary.dawood@gmail.com
 [credential]
-	helper = cache --timeout=3600
+	helper = store
 [github]
 	user = zach8080

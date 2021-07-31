@@ -634,6 +634,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (global-set-key (kbd "C-c \S-s") 'speedbar)
   (global-set-key (kbd "C-c \S-w") 'eww)
   (global-set-key (kbd "C-c \S-v") 'goto-todo)
+  (global-set-key (kbd "C-c \S-z") 'zone)
 
   (global-set-key (kbd "C-x k") 'kill-other-buffers)
 
@@ -675,6 +676,7 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (setq-default cursor-type 'bar)
   (blink-cursor-mode 1)
 
+  (setq zone-programs [zone-pgm-putz-with-case zone-pgm-rotate-LR-variable zone-pgm-rotate-RL-lockstep zone-pgm-rotate])
 
   (setq confirm-kill-processes nil)
 
