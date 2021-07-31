@@ -1,7 +1,7 @@
 [user]
-	name = Zachd101
+	name = zach8080
 	email = zachary.dawood@ucc.on.ca
 [credential]
 	helper = cache --timeout=3600
 [github]
-	user = Zachd101
+	user = zach8080
