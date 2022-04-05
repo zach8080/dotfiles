@@ -28,3 +28,4 @@ alias cdots='cd ~/.dotfiles/'
 alias chome='cd ~/'
 
 
+. "$HOME/.cargo/env"

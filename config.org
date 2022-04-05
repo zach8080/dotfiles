@@ -280,6 +280,12 @@
     (setq ibuffer-saved-filter-groups
 	  (quote (("New"
 
+		   ("Uni"
+		    (filename . "documents/uni/"))
+
+		   ("Docs"
+		    (filename . "documents/"))
+		 
 		   ("Terminal"
 		    (or
 		     (mode . term-mode)
@@ -287,14 +293,13 @@
 		     ))
 
 
-	     ("Magit" (name . "magit"))
+		   ("Magit" (name . "magit"))
 
 		   ("Dired"
 		    (mode . dired-mode))
 
 
-		   ("Uni"
-		    (filename . "documents/uni/"))
+		 
 
 		    ("Special" (name . "*"))
 
@@ -384,6 +389,13 @@
 #+END_SRC
 
 ** Gnus
+** Rust
+
+#+begin_src emacs-lisp 
+  (use-package rust-mode
+    :ensure t)
+#+end_src
+
 ** Misc
 
 #+BEGIN_SRC emacs-lisp
@@ -473,9 +485,9 @@
     (let ($sort-by $arg)
       (setq $sort-by (ido-completing-read "Sort by:" '( "date" "size" "name" )))
       (cond
-       ((equal $sort-by "name") (setq $arg "-Al "))
-       ((equal $sort-by "date") (setq $arg "-Al -t"))
-       ((equal $sort-by "size") (setq $arg "-Al -S"))
+       ((equal $sort-by "name") (setq $arg "-Alh "))
+       ((equal $sort-by "date") (setq $arg "-Alh -t"))
+       ((equal $sort-by "size") (setq $arg "-Alh -S"))
        (t (error "logic error 09535" )))
       (dired-sort-other $arg )))
 #+end_src
@@ -628,9 +640,10 @@ Shell is weird on mac delete set-exec-path-from-shell-PATH when on linux
   (define-key dired-mode-map (kbd "5") (lambda () (interactive) (find-alternate-file "~/sync")))
   (define-key dired-mode-map (kbd "6") (lambda () (interactive) (find-alternate-file "~/documents/uni")))
   (define-key dired-mode-map (kbd "7") (lambda () (interactive) (find-alternate-file "~/dotfiles")))
-  (define-key dired-mode-map (kbd "8") (lambda () (interactive) (find-alternate-file "/run/media/zach")))
+  (define-key dired-mode-map (kbd "8") (lambda () (interactive) (find-alternate-file "~/documents/misc/")))
   (define-key dired-mode-map (kbd "9") (lambda () (interactive) (find-alternate-file "~/documents/books/")))
   (define-key dired-mode-map (kbd "0") (lambda () (interactive) (find-alternate-file "~/documents/code/")))
+  (define-key dired-mode-map [S-down-mouse-1] 'dired-find-alternate-file)
 
 
   (define-key dired-mode-map (kbd ",") 'dired-hide-details-mode)
