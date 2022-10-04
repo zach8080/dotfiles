@@ -277,37 +277,34 @@
 
 #+begin_src emacs-lisp
 
-    (setq ibuffer-saved-filter-groups
-	  (quote (("New"
+  (setq ibuffer-saved-filter-groups
+	(quote (("New"
+	       
+		 ("Dired"
+		  (mode . dired-mode))
+	       
+		 ("Uni"
+		  (filename . "documents/uni/"))
+	       
+		 ("Docs"
+		  (filename . "documents/"))
+	       
+		 ("Terminal"
+		  (or
+		   (mode . term-mode)
+		   (mode . eshell-mode)
+		   ))
+	       
+	       
+		 ("Magit" (name . "magit"))
+	       
+		 ("Special" (name . "*"))
+	       
+		 ))))
 
-		   ("Uni"
-		    (filename . "documents/uni/"))
-
-		   ("Docs"
-		    (filename . "documents/"))
-		 
-		   ("Terminal"
-		    (or
-		     (mode . term-mode)
-		     (mode . eshell-mode)
-		     ))
-
-
-		   ("Magit" (name . "magit"))
-
-		   ("Dired"
-		    (mode . dired-mode))
-
-
-		 
-
-		    ("Special" (name . "*"))
-
-		   ))))
-
-    (add-hook 'ibuffer-mode-hook
-      (lambda ()
-	(ibuffer-switch-to-saved-filter-groups "New")))
+  (add-hook 'ibuffer-mode-hook
+	    (lambda ()
+	      (ibuffer-switch-to-saved-filter-groups "New")))
 
 
   (setq ibuffer-show-empty-filter-groups nil)
